@@ -55,6 +55,14 @@ public class DeviceCatalogItem{
     public Integer getMaxAllowedPerEmployee(){
         return maxAllowedPerEmployee;
     }
-    public void setMaxAllowedPerEmployee(Integer)
+    public void setMaxAllowedPerEmployee(Integer maxAllowedPerEmployee){
+        this.maxAllowedPerEmployee=maxAllowedPerEmployee;
+    }
+    public Boolean getActive(){
+        return active;
+    }
+    public void setActive(Boolean active){
+        this.active=active;
+    }
 
 }
