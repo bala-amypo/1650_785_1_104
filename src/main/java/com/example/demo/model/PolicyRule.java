@@ -54,15 +54,15 @@ public class PolicyRule{
         this.appliesToRole=appliesToRole;
     }
     public String getAppliesToDepartment(){
-        return department;
+        return appliesToDepartment;
     }
-    public void setDepartment(String department){
-        this.department=department;
+    public void setAppliesToDepartment(String appliesToDepartment){
+        this.appliesToDepartment=appliesToDepartment;
     }
-    public String getJobRole(){
-        return jobRole;
+    public Integet getMaxDevicesAllowed(){
+        return maxDevicesAllowed;
     }
-    public void setJobRole(String jobRole){
+    public void setMaxDevicesAllowed(Integer jobRole){
         this.jobRole=jobRole;
     }
 
