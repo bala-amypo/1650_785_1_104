@@ -26,6 +26,44 @@ public class PolicyRule{
         this.ruleCode=ruleCode;
         this.description=description;
         this.applieToRole=appliesToRole;
-        this.appliesToDepartmen
+        this.appliesToDepartment=appliesToDepartment;
+        this.maxDevicesAllowed=maxDevicesAllowed;
      }
+     public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id=id;
+    }
+    public String getRuleCode(){
+        return ruleCode;
+    }
+    public void setRuleCode(String ruleCode){
+        this.ruleCode=ruleCode;
+    }
+    public String getdescription(){
+        return description;
+    }
+    public void setfullname(String fullName){
+        this.fullName=fullName;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(String email){
+        this.email=email;
+    }
+    public String getDepartment(){
+        return department;
+    }
+    public void setDepartment(String department){
+        this.department=department;
+    }
+    public String getJobRole(){
+        return jobRole;
+    }
+    public void setJobRole(String jobRole){
+        this.jobRole=jobRole;
+    }
+
 }
