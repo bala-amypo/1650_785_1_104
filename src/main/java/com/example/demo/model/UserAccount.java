@@ -6,7 +6,7 @@ public class EmployeeProfile{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
-    private String employeeId
+    private String employeeId;
     private String fullName;
     @Column(unique=true)
     private String email;
@@ -17,5 +17,5 @@ public class EmployeeProfile{
     public EmployeeProfile(){
 
     }
-    public EmployeeProfile(String employeeId,String fullName,String email)
+    public EmployeeProfile(Long id,String employeeId,String fullName,String email,String jobRole,Boolean active,LocalDateTime createdAt)
 }
