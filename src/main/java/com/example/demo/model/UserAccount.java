@@ -9,5 +9,13 @@ public class EmployeeProfile{
     private String employeeId
     private String fullName;
     @Column(unique=true)
-    private 
+    private String email;
+    private String department;
+    private String jobRole;
+    private Boolean active;
+    private LocalDateTime createdAt;
+    public EmployeeProfile(){
+
+    }
+    public EmployeeProfile(String employeeId,String fullName,String email)
 }
