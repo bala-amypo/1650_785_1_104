@@ -34,17 +34,17 @@ public class IssuedDeviceRecord{
     public void setEmployeeId(Long employeeId){
         this.employeeId=employeeId;
     }
-    public Long deviceItemId(){
+    public Long getDeviceItemId(){
         return deviceItemId;
     }
-    public void setfullname(String fullName){
-        this.fullName=fullName;
+    public void setDeviceItemId(Long deviceItemId){
+        this.deviceItemId=deviceItemId;
     }
-    public String getEmail(){
-        return email;
+    public LocalDate getIssuedDate(){
+        return issuedDate;
     }
-    public void setEmail(String email){
-        this.email=email;
+    public void setIssuedDate(LocalDate issuedDate){
+        this.issuedDate=isuue;
     }
     public String getDepartment(){
         return department;
