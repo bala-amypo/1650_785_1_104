@@ -17,15 +17,12 @@ public class UserAccount {
 
     private String passwordHash;
 
-    private String role;   // ADMIN / IT_OPERATOR / AUDITOR
+    private String role;   
 
     private Boolean active = true;
-
-    // ✅ No-args constructor (required)
     public UserAccount() {
     }
 
-    // ✅ Core fields constructor
     public UserAccount(String fullName, String email, String passwordHash, String role) {
         this.fullName = fullName;
         this.email = email;
@@ -33,8 +30,6 @@ public class UserAccount {
         this.role = role;
         this.active = true;
     }
-
-    // ---------------- GETTERS & SETTERS ----------------
 
     public Long getId() {
         return id;
