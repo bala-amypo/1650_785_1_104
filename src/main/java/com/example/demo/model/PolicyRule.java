@@ -7,6 +7,11 @@ public class PolicyRule{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
-    private String employeeId;
-    private String fullName;
+    private String ruleCode;
+    private String description;
+    private String appliesToRole;
+    private String appliesToDepartment;
+    private Integer maxDevicesAllowed;
+    private Boolean active;
+    
 }
