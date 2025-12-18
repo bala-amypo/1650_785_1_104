@@ -8,5 +8,8 @@ public class EligibilityCheckRecord{
     private Long id;
     // @Column(unique=true)
     private Long employeeId;
-    private 
+    private Long deviceItemId;
+    private Boolean isEligible;
+    private LocalDateTime checkedAt;
+    
 }
