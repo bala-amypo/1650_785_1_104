@@ -12,10 +12,13 @@ public class EmployeeProfile{
     private String email;
     private String department;
     private String jobRole;
-    private Boolean active;
+    private Boolean active=true;
     private LocalDateTime createdAt;
     public EmployeeProfile(){
 
     }
-    public EmployeeProfile(Long id,String employeeId,String fullName,String email,String jobRole,Boolean active,LocalDateTime createdAt)
+    public EmployeeProfile(Long id,@Column(unique=true) String employeeId,String fullName,@Column(unique=true) String email,String jobRole,Boolean active,LocalDateTime createdAt){
+        this.employeeId=employeeId;
+        this.full
+    }
 }
