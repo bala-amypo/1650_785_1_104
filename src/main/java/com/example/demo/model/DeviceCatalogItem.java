@@ -34,6 +34,11 @@ public class DeviceCatalogItem{
     public void setId(Long id){
         this.id=id;
     }
-    
+    public String getDeviceCode(){
+        return deviceCode;
+    }
+    public void setDeviceCode(String deviceCode){
+        
+    }
 
 }
