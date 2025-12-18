@@ -60,7 +60,18 @@ public class EmployeeProfile{
         return jobRole;
     }
     public void setJobRole(String jobRole){
-        this.jobRole=jobRule;
+        this.jobRole=jobRole;
     }
-    
+    public Boolean getActive(){
+        return active;
+    }
+    public void setActive(Boolean active){
+        this.active=active;
+    }
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt=createdAt;
+    }
 }
