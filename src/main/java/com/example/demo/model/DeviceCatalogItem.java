@@ -16,12 +16,24 @@ public class DeviceCatalogItem{
 
     }
     public DeviceCatalogItem(Long id,
-    @Column(unique=true)
-     String deviceCode,
+    @Column(unique=true) String deviceCode,
      String deviceType,
      String model,
      Integer maxAllowedPerEmployee,
      Boolean active){
+        this.deviceCode=deviceCode;
+        this.deviceType=deviceType;
+        this.model=model;
+        this.maxAllowedPerEmployee=maxAllowedPerEmployee;
+        this.active=true;
 
      }
+     public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id=id;
+    }
+    
+
 }
