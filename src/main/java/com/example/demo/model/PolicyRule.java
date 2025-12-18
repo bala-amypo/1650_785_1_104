@@ -62,8 +62,8 @@ public class PolicyRule{
     public Integet getMaxDevicesAllowed(){
         return maxDevicesAllowed;
     }
-    public void setMaxDevicesAllowed(Integer jobRole){
-        this.jobRole=jobRole;
+    public void setMaxDevicesAllowed(Integer maxDevicesAllowed){
+        this.maxDevicesAllowed=maxDevicesAllowed;
     }
 
 }
