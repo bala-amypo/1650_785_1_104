@@ -19,6 +19,15 @@ public class EmployeeProfile{
     }
     public EmployeeProfile(Long id,@Column(unique=true) String employeeId,String fullName,@Column(unique=true) String email,String jobRole,Boolean active,LocalDateTime createdAt){
         this.employeeId=employeeId;
-        this.full
+        this.fullName=fullName;
+        this.email=email;
+        this.department=department;
+        this.jobRole=jobRole;
+        this.active=true;
+        this.createdAt=createdAt;
     }
+    public Long getId(){
+        return id;
+    }
+    public void setId()
 }
