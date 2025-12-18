@@ -11,5 +11,17 @@ public class DeviceCatalogItem{
     private String deviceType;
     private String model;
     private Integer maxAllowedPerEmployee;
-    private Boolean 
+    private Boolean active=true;
+    public DeviceCatalogItem(){
+
+    }
+    public DeviceCatalogItem(Long id,
+    @Column(unique=true)
+     String deviceCode,
+     String deviceType,
+     String model,
+     Integer maxAllowedPerEmployee,
+     Boolean active){
+
+     }
 }
