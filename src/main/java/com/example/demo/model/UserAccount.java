@@ -47,5 +47,20 @@ public class EmployeeProfile{
     public String getEmail(){
         return email;
     }
-    public void setE
+    public void setEmail(String email){
+        this.email=email;
+    }
+    public String getDepartment(){
+        return department;
+    }
+    public void setDepartment(String department){
+        this.department=department;
+    }
+    public String getJobRole(){
+        return jobRole;
+    }
+    public void setJobRole(String jobRole){
+        this.jobRole=jobRule;
+    }
+    
 }
