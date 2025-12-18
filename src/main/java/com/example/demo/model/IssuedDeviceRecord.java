@@ -44,18 +44,18 @@ public class IssuedDeviceRecord{
         return issuedDate;
     }
     public void setIssuedDate(LocalDate issuedDate){
-        this.issuedDate=isuue;
+        this.issuedDate=issuedDate;
     }
-    public String getDepartment(){
-        return department;
+    public LocalDate getReturnedDate(){
+        return returnedDate;
     }
-    public void setDepartment(String department){
-        this.department=department;
+    public void setReturnedDate(LocalDate returnedDate){
+        this.returnedDate=returnedDate;
     }
-    public String getJobRole(){
-        return jobRole;
+    public String getStatus(){
+        return status;
     }
-    public void setJobRole(String jobRole){
-        this.jobRole=jobRole;
+    public void setStatus(String status){
+        this.status=status;
     }
 }
