@@ -38,22 +38,22 @@ public class PolicyRule{
     public String getRuleCode(){
         return ruleCode;
     }
-    public void setRuleCode(String ruleCode){
+    public void setRuleCode(String description){
         this.ruleCode=ruleCode;
     }
-    public String getdescription(){
+    public String getDescription(){
         return description;
     }
-    public void setfullname(String fullName){
-        this.fullName=fullName;
+    public void setDescription(String description){
+        this.description=description;
     }
-    public String getEmail(){
-        return email;
+    public String getAppliesToRole(){
+        return appliesToRole;
     }
-    public void setEmail(String email){
-        this.email=email;
+    public void setAppliesToRole(String appliesToRole){
+        this.appliesToRole=appliesToRole;
     }
-    public String getDepartment(){
+    public String getAppliesToDepartment(){
         return department;
     }
     public void setDepartment(String department){
