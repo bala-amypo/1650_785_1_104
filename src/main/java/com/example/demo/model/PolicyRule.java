@@ -13,5 +13,19 @@ public class PolicyRule{
     private String appliesToDepartment;
     private Integer maxDevicesAllowed;
     private Boolean active;
-    
+    public PolicyRule(){
+
+    }
+    public PolicyRule(private Long id,
+    @Column(unique=true) private String ruleCode,
+     String description,
+     String appliesToRole,
+     String appliesToDepartment,
+     Integer maxDevicesAllowed,
+     Boolean active){
+        this.ruleCode=ruleCode;
+        this.description=description;
+        this.applieToRole=appliesToRole;
+        this.appliesToDepartmen
+     }
 }
