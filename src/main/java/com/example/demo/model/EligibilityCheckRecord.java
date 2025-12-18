@@ -16,15 +16,22 @@ public class EligibilityCheckRecord{
 
     }
     public EligibilityCheckRecord(private Long id,
-    
      Long employeeId,
      Long deviceItemId,
      Boolean isEligible,
-     LocalDateTime checkedAt)
+     LocalDateTime checkedAt){
+        this.employeeId=employeeId;
+        this.deviceItemId=deviceItemId;
+        this.isEligible=isEligible;
+        this.checkedAt=checkedAt;
+
+
+
+     }
 
     public Long getId() {
     return id;
-}
+   }
 
 public void setId(Long id) {
     this.id = id;
