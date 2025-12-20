@@ -5,7 +5,7 @@ import com.example.demo.repository.EligibilityCheckRecordRepository;
 import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.service.EligibilityCheckService;
 
-public class EligibilityCheckServiceImpl implements EligibilityRecordService {
+public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
     private final EligibilityCheckRecordRepository repo;
 
