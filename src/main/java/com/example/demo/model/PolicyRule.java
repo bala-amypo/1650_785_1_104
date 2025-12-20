@@ -16,8 +16,8 @@ public class PolicyRule{
     public PolicyRule(){
 
     }
-    public PolicyRule(private Long id,
-    @Column(unique=true) private String ruleCode,
+    public PolicyRule(Long id,
+    @Column(unique=true) String ruleCode,
      String description,
      String appliesToRole,
      String appliesToDepartment,

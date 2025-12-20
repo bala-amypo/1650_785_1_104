@@ -15,7 +15,7 @@ public class EligibilityCheckRecord{
     public EligibilityCheckRecord(){
 
     }
-    public EligibilityCheckRecord(private Long id,
+    public EligibilityCheckRecord(Long id,
      Long employeeId,
      Long deviceItemId,
      Boolean isEligible,

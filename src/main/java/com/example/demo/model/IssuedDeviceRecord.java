@@ -22,7 +22,7 @@ public class IssuedDeviceRecord{
         this.returnedDate=returnedDate;
         this.status=status;
     }
-    ublic Long getId(){
+    public Long getId(){
         return id;
     }
     public void setId(Long id){
