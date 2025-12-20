@@ -6,4 +6,4 @@ import com.example.demo.model.EmployeeProfile;
 public interface EmployeeProfileService {
     EmployeeProfile save(EmployeeProfile e);
     List<EmployeeProfile> findAll();
-}
+} 
