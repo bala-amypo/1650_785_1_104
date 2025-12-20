@@ -3,13 +3,13 @@ package com.example.demo.service.impl;
 import java.util.List;
 import com.example.demo.repository.EligibilityCheckRecordRepository;
 import com.example.demo.model.EligibilityCheckRecord;
-import com.example.demo.service.EligibilityCheckRecordService;
+import com.example.demo.service.EligibilityCheckService;
 
-public class EligibilityCheckRecordServiceImpl implements EligibilityCheckRecordService {
+public class EligibilityCheckServiceImpl implements EligibilityRecordService {
 
     private final EligibilityCheckRecordRepository repo;
 
-    public EligibilityCheckRecordServiceImpl(EligibilityCheckRecordRepository repo) {
+    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
         this.repo = repo;
     }
 
