@@ -17,7 +17,7 @@ public class DeviceCatalogItemServiceImpl implements DeviceCatalogItemService {
         return repo.save(d);
     }
 
-    public List<DeviceCatalog> findAll() {
+    public List<DeviceCatalogItem> findAll() {
         return repo.findAll();
     }
 }
