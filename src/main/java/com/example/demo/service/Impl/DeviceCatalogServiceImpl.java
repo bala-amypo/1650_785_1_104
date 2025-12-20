@@ -1,19 +1,19 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
-import com.example.demo.repository.DeviceCatalogRepository;
-import com.example.demo.model.DeviceCatalog;
-import com.example.demo.service.DeviceCatalogService;
+import com.example.demo.repository.DeviceCatalogItemRepository;
+import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.service.DeviceCatalogItemService;
 
-public class DeviceCatalogServiceImpl implements DeviceCatalogService {
+public class DeviceCatalogItemServiceImpl implements DeviceCatalogItemService {
 
-    private final DeviceCatalogRepository repo;
+    private final DeviceCatalogItemRepository repo;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogRepository repo) {
+    public DeviceCatalogItemServiceImpl(DeviceCatalogItemRepository repo) {
         this.repo = repo;
     }
 
-    public DeviceCatalog save(DeviceCatalog d) {
+    public DeviceCatalogItem save(DeviceCatalogItem d) {
         return repo.save(d);
     }
 
