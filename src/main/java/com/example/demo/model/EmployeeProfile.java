@@ -8,17 +8,9 @@ public class EmployeeProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true)
     private String employeeId;
-
-    @Column(unique = true)
-    private String email;
-
-    private String fullName;
+    private String name;
     private String department;
-    private String jobRole;
-    private Boolean active = true;
 
     public EmployeeProfile() {}
 
@@ -28,18 +20,9 @@ public class EmployeeProfile {
     public String getEmployeeId() { return employeeId; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
-
-    public String getJobRole() { return jobRole; }
-    public void setJobRole(String jobRole) { this.jobRole = jobRole; }
-
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
 }
