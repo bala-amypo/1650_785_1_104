@@ -4,6 +4,7 @@ import java.util.List;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
+@Service
 
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 

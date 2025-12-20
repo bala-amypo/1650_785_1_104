@@ -4,6 +4,8 @@ import java.util.List;
 import com.example.demo.repository.IssuedDeviceRecordRepository;
 import com.example.demo.model.IssuedDeviceRecord;
 import com.example.demo.service.IssuedDeviceRecordService;
+import org.springframework.stereotype.Service;
+@Service
 
 public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
 
