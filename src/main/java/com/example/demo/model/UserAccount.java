@@ -47,3 +47,11 @@ public class UserAccount {
     @Column(nullable = false)
     private Boolean active;
 }
+
+package com.example.demo.model;
+
+public enum UserRole {
+    ADMIN,
+    USER,
+    MANAGER
+}
