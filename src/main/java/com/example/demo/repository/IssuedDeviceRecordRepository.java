@@ -5,5 +5,5 @@ import com.example.demo.model.*;
 public interface IssuedDeviceRecordRepository
         extends JpaRepository<IssuedDeviceRecord, Long> {
 
-    List<IssuedDeviceRecord> findByEmployeeId(Long employeeId);
+    // List<IssuedDeviceRecord> findByEmployeeId(Long employeeId);
 }

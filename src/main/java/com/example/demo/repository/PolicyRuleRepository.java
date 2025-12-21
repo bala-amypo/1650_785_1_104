@@ -6,5 +6,5 @@ import com.example.demo.model.*;
 public interface PolicyRuleRepository
         extends JpaRepository<PolicyRule, Long> {
 
-    List<PolicyRule> findByActiveTrue();
+    // List<PolicyRule> findByActiveTrue();
 }
