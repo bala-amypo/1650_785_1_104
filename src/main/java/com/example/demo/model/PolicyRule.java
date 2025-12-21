@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import Lombok.*;
 
 import jakarta.persistence.*;
 @Entity
