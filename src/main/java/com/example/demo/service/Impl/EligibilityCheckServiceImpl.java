@@ -6,20 +6,15 @@ import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 @Service
-
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
-
     private final EligibilityCheckRecordRepository repo;
-
     public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
         this.repo = repo;
     }
-
-    public EligibilityCheckRecord save(EligibilityCheckRecord e) {
+    public EligibilityCheckRecord create(EligibilityCheckRecord e) {
         return repo.save(e);
     }
-
-    public List<EligibilityCheckRecord> findAll() {
+    public List<EligibilityCheckRecord> getAll() {
         return repo.findAll();
     }
 }
