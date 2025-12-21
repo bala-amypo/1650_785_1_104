@@ -1,70 +1,54 @@
 package com.example.demo.model;
-// import Lombok.*;
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
-
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "issued_device_records")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class IssuedDeviceRecord {
+public class IssuedDeviceRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(nullable = false)
     private Long employeeId;
 
     @NotNull
-    @Column(nullable = false)
     private Long deviceItemId;
 
     @NotNull
-    @Column(nullable = false)
     private LocalDate issuedDate;
 
     private LocalDate returnedDate;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private DeviceStatus status;
+    private Boolean returned;
 
-    @PrePersist
-    @PreUpdate
-    void updateStatus() {
-        this.status = (returnedDate == null)
-                ? DeviceStatus.ISSUED
-                : DeviceStatus.RETURNED;
-    }
+    @NotNull
+    private String deviceStatus; // replaced enum with String
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+
+    public Long getDeviceItemId() { return deviceItemId; }
+    public void setDeviceItemId(Long deviceItemId) { this.deviceItemId = deviceItemId; }
+
+    public LocalDate getIssuedDate() { return issuedDate; }
+    public void setIssuedDate(LocalDate issuedDate) { this.issuedDate = issuedDate; }
+
+    public LocalDate getReturnedDate() { return returnedDate; }
+    public void setReturnedDate(LocalDate returnedDate) { this.returnedDate = returnedDate; }
+
+    public Boolean getReturned() { return returned; }
+    public void setReturned(Boolean returned) { this.returned = returned; }
+
+    public String getDeviceStatus() { return deviceStatus; }
+    public void setDeviceStatus(String deviceStatus) { this.deviceStatus = deviceStatus; }
 }
-// @NotNull
-// private LocalDate issuedDate;
-
-// private LocalDate returnedDate;
-// package com.example.demo.model;
-
-public enum DeviceStatus {
-    AVAILABLE,
-    ISSUED,
-    RETURNED,
-    DAMAGED
-}
-// @NotNull
-// @Enumerated(EnumType.STRING)
-
-
-

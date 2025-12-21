@@ -1,50 +1,41 @@
 package com.example.demo.model;
-// import Lombok.*;
+
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "eligibility_check_records")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class EligibilityCheckRecord {
+public class EligibilityCheckRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(nullable = false)
     private Long employeeId;
 
     @NotNull
-    @Column(nullable = false)
     private Long deviceItemId;
 
     @NotNull
-    @Column(nullable = false)
     private Boolean isEligible;
 
-    @NotBlank
-    @Column(nullable = false)
     private String reason;
 
-    @NotNull
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime checkedAt;
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @PrePersist
-    void onCheck() {
-        this.checkedAt = LocalDateTime.now();
-    }
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+
+    public Long getDeviceItemId() { return deviceItemId; }
+    public void setDeviceItemId(Long deviceItemId) { this.deviceItemId = deviceItemId; }
+
+    public Boolean getIsEligible() { return isEligible; }
+    public void setIsEligible(Boolean isEligible) { this.isEligible = isEligible; }
+
+    public String getReason() { return reason; }
+    public void setReason(String reason) { this.reason = reason; }
 }
