@@ -7,13 +7,21 @@ import com.example.demo.service.PolicyRuleService;
 import org.springframework.stereotype.Service;
 @Service
 public class PolicyRuleServiceImpl implements PolicyRuleService {
+
     private final PolicyRuleRepository repo;
+
     public PolicyRuleServiceImpl(PolicyRuleRepository repo) {
         this.repo = repo;
     }
-    public PolicyRule create(PolicyRule r) {
-        return repo.save(r);
+
+    public PolicyRule create(PolicyRule rule) {
+        return repo.save(rule);
     }
+
+    public List<PolicyRule> getActiveRules() {
+        return repo.findByActiveTrue();
+    }
+
     public List<PolicyRule> getAll() {
         return repo.findAll();
     }

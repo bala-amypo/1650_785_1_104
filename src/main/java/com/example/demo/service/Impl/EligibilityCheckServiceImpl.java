@@ -6,15 +6,31 @@ import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 @Service
-public class EligibilityCheckServiceImpl implements EligibilityCheckService {
+public class EligibilityCheckServiceImpl
+        implements EligibilityCheckService {
+
     private final EligibilityCheckRecordRepository repo;
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
+
+    public EligibilityCheckServiceImpl(
+            EligibilityCheckRecordRepository repo) {
         this.repo = repo;
     }
-    public EligibilityCheckRecord create(EligibilityCheckRecord e) {
-        return repo.save(e);
+
+    public EligibilityCheckRecord validate(
+            Long employeeId, Long deviceItemId) {
+
+        EligibilityCheckRecord record =
+                new EligibilityCheckRecord();
+
+        record.setEmployeeId(employeeId);
+        record.setDeviceItemId(deviceItemId);
+        record.setIsEligible(true);
+        record.setReason("Allowed");
+
+        return repo.save(record);
     }
-    public List<EligibilityCheckRecord> getAll() {
-        return repo.findAll();
+
+    public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 }

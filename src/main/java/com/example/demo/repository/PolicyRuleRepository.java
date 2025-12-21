@@ -3,4 +3,8 @@ package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.model.*;
-public interface PolicyRuleRepository extends JpaRepository<PolicyRule, Long> {}
+public interface PolicyRuleRepository
+        extends JpaRepository<PolicyRule, Long> {
+
+    List<PolicyRule> findByActiveTrue();
+}
