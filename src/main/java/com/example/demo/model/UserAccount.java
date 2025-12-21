@@ -48,7 +48,7 @@ public class UserAccount {
     private Boolean active;
 }
 
-package com.example.demo.model;
+// package com.example.demo.model;
 
 public enum UserRole {
     ADMIN,

@@ -2,6 +2,8 @@ package com.example.demo.model;
 // import Lombok.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate;
+
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.NotNull;
@@ -49,4 +51,20 @@ public class IssuedDeviceRecord {
                 : DeviceStatus.RETURNED;
     }
 }
+// @NotNull
+// private LocalDate issuedDate;
+
+// private LocalDate returnedDate;
+// package com.example.demo.model;
+
+public enum DeviceStatus {
+    AVAILABLE,
+    ISSUED,
+    RETURNED,
+    DAMAGED
+}
+// @NotNull
+// @Enumerated(EnumType.STRING)
+
+
 
