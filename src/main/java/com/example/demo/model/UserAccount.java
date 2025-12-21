@@ -38,11 +38,3 @@ public class UserAccount {
     @Column(nullable = false)
     private Boolean active;
 }
-Enum
-Copy code
-Java
-public enum UserRole {
-    ADMIN,
-    IT_OPERATOR,
-    AUDITOR
-}

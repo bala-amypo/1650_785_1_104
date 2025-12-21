@@ -40,10 +40,4 @@ public class IssuedDeviceRecord {
                 : DeviceStatus.RETURNED;
     }
 }
-Enum
-Copy code
-Java
-public enum DeviceStatus {
-    ISSUED,
-    RETURNED
-}
+
