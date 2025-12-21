@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.PolicyRule;
 import com.example.demo.service.PolicyRuleService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/policies")
+@RequestMapping("/api/policy-rules")
 public class PolicyRuleController {
 
     private final PolicyRuleService service;
@@ -16,12 +17,17 @@ public class PolicyRuleController {
     }
 
     @PostMapping
-    public PolicyRule save(@RequestBody PolicyRule rule) {
-        return service.save(rule);
+    public PolicyRule create(@RequestBody PolicyRule rule) {
+        return service.create(rule);
+    }
+
+    @GetMapping("/active")
+    public List<PolicyRule> getActiveRules() {
+        return service.getActiveRules();
     }
 
     @GetMapping
     public List<PolicyRule> getAll() {
-        return service.findAll();
+        return service.getAll();
     }
 }
