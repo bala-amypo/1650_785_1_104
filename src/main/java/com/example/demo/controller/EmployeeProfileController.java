@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -16,12 +17,28 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile save(@RequestBody EmployeeProfile emp) {
-        return service.save(emp);
+    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
+        return service.createEmployee(employee);
+    }
+
+    @GetMapping("/{id}")
+    public EmployeeProfile getById(@PathVariable Long id) {
+        return service.getEmployeeById(id);
     }
 
     @GetMapping
     public List<EmployeeProfile> getAll() {
-        return service.findAll();
+        return service.getAllEmployees();
+    }
+
+    @PutMapping("/{id}")
+    public EmployeeProfile update(@PathVariable Long id,
+                                  @RequestBody EmployeeProfile employee) {
+        return service.updateEmployee(id, employee);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.deleteEmployee(id);
     }
 }
