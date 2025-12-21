@@ -1,12 +1,12 @@
-package com.example.demo.service.impl;
+package com.example.demo.serviceimpl;
 
-import java.util.List;
-import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
-@Service
+import java.util.List;
 
+@Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
     private final DeviceCatalogItemRepository repo;
@@ -15,11 +15,32 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
         this.repo = repo;
     }
 
-    public DeviceCatalogItem save(DeviceCatalogItem d) {
-        return repo.save(d);
+    public DeviceCatalogItem create(DeviceCatalogItem item) {
+        return repo.save(item);
     }
 
-    public List<DeviceCatalogItem> findAll() {
+    public DeviceCatalogItem getById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public List<DeviceCatalogItem> getAll() {
         return repo.findAll();
+    }
+
+    public DeviceCatalogItem update(Long id, DeviceCatalogItem item) {
+        DeviceCatalogItem existing = getById(id);
+        if (existing != null) {
+            existing.setDeviceCode(item.getDeviceCode());
+            existing.setDeviceType(item.getDeviceType());
+            existing.setModel(item.getModel());
+            existing.setMaxAllowedPerEmployee(item.getMaxAllowedPerEmployee());
+            existing.setActive(item.getActive());
+            return repo.save(existing);
+        }
+        return null;
+    }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
     }
 }

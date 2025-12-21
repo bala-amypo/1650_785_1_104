@@ -1,12 +1,12 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/devices")
+@RequestMapping("/api/devices")
 public class DeviceCatalogController {
 
     private final DeviceCatalogService service;
@@ -16,12 +16,28 @@ public class DeviceCatalogController {
     }
 
     @PostMapping
-    public DeviceCatalogItem save(@RequestBody DeviceCatalogItem device) {
-        return service.save(device);
+    public DeviceCatalogItem create(@RequestBody DeviceCatalogItem item) {
+        return service.create(item);
+    }
+
+    @GetMapping("/{id}")
+    public DeviceCatalogItem get(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping
     public List<DeviceCatalogItem> getAll() {
-        return service.findAll();
+        return service.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public DeviceCatalogItem update(@PathVariable Long id,
+                                    @RequestBody DeviceCatalogItem item) {
+        return service.update(id, item);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }
