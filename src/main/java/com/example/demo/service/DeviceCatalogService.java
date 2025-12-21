@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.model.DeviceCatalogItem;
-
+import java.util.List;
 
 public interface DeviceCatalogService {
-    DeviceCatalogItem save(DeviceCatalogItem d);
-    List<DeviceCatalogItem> findAll();
+    DeviceCatalogItem create(DeviceCatalogItem item);
+    DeviceCatalogItem getById(Long id);
+    List<DeviceCatalogItem> getAll();
+    DeviceCatalogItem update(Long id, DeviceCatalogItem item);
+    void delete(Long id);
 }
