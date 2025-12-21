@@ -1,42 +1,49 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-
 @Entity
+@Table(name = "issued_device_records")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssuedDeviceRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Column(nullable = false)
     private Long employeeId;
 
-    private boolean returned;   // 🔴 MISSING FIELD
+    @NotNull
+    @Column(nullable = false)
+    private Long deviceItemId;
 
-    public IssuedDeviceRecord() {
-    }
+    @NotNull
+    @Column(nullable = false)
+    private LocalDate issuedDate;
 
-    public Long getId() {
-        return id;
-    }
+    private LocalDate returnedDate;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DeviceStatus status;
 
-    public Long getEmployeeId() {
-        return employeeId;
+    @PrePersist
+    @PreUpdate
+    void updateStatus() {
+        this.status = (returnedDate == null)
+                ? DeviceStatus.ISSUED
+                : DeviceStatus.RETURNED;
     }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public boolean isReturned() {
-        return returned;
-    }
-
-    public void setReturned(boolean returned) {   // 🔴 MISSING SETTER
-        this.returned = returned;
-    }
+}
+Enum
+Copy code
+Java
+public enum DeviceStatus {
+    ISSUED,
+    RETURNED
 }

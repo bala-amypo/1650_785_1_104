@@ -3,42 +3,55 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
+@Table(
+    name = "employee_profiles",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "employee_id"),
+        @UniqueConstraint(columnNames = "email")
+    }
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @NotBlank
+    @Column(name = "employee_id", nullable = false, unique = true)
     private String employeeId;
 
+    @NotBlank
+    @Column(nullable = false)
     private String fullName;
+
+    @NotBlank
+    @Email
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @NotBlank
+    @Column(nullable = false)
     private String department;
+
+    @NotBlank
+    @Column(nullable = false)
     private String jobRole;
+
+    @NotNull
+    @Column(nullable = false)
     private Boolean active;
+
+    @NotNull
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
-    public void setCreatedAt() {
+    void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    public EmployeeProfile() {}
-
-    public Long getId() { return id; }
-    public String getEmployeeId() { return employeeId; }
-    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
-    public String getJobRole() { return jobRole; }
-    public void setJobRole(String jobRole) { this.jobRole = jobRole; }
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
 }

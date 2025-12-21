@@ -1,32 +1,43 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-
 @Entity
+@Table(
+    name = "policy_rules",
+    uniqueConstraints = @UniqueConstraint(columnNames = "rule_code")
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PolicyRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean active;
+    @NotBlank
+    @Column(name = "rule_code", nullable = false, unique = true)
+    private String ruleCode;
 
-    public PolicyRule() {
-    }
+    @NotBlank
+    @Column(nullable = false)
+    private String description;
 
-    public Long getId() {
-        return id;
-    }
+    @NotBlank
+    @Column(nullable = false)
+    private String appliesToRole;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotBlank
+    @Column(nullable = false)
+    private String appliesToDepartment;
 
-    public boolean isActive() {
-        return active;
-    }
+    @NotNull
+    @Min(1)
+    @Column(nullable = false)
+    private Integer maxDevicesAllowed;
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    @NotNull
+    @Column(nullable = false)
+    private Boolean active;
 }
