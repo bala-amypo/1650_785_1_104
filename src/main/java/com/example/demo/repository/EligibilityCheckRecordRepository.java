@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface EligibilityCheckRecordRepository
         extends JpaRepository<EligibilityCheckRecord, Long> {
+List<EligibilityCheckRecord> records = repo.findByEmployeeId(employeeId);
+return records;
 
-    Optional<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
+    // Optional<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
 }
