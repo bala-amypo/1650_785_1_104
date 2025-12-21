@@ -1,5 +1,5 @@
 package com.example.demo.model;
-import Lombok.*;
+// import Lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
