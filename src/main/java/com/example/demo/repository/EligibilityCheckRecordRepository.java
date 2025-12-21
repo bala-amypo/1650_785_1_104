@@ -1,9 +1,11 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.EligibilityCheckRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.model.*;
+import java.util.Optional;
+
 public interface EligibilityCheckRecordRepository
         extends JpaRepository<EligibilityCheckRecord, Long> {
 
-    // List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
+    Optional<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
 }
