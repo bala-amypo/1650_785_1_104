@@ -1,17 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.EmployeeProfile;
+import com.example.demo.model.*;
 import java.util.List;
 
 public interface EmployeeProfileService {
-
-    EmployeeProfile createEmployee(EmployeeProfile employee);
-
-    EmployeeProfile getEmployeeById(Long id);
-
-    List<EmployeeProfile> getAllEmployees();
-
-    EmployeeProfile updateEmployee(Long id, EmployeeProfile employee);
-
-    void deleteEmployee(Long id);
+    EmployeeProfile create(EmployeeProfile e);
+    List<EmployeeProfile> getAll();
 }
