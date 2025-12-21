@@ -14,16 +14,17 @@ public class AuthController {
         this.service = service;
     }
 
-    // POST /auth/register
     @PostMapping("/register")
     public UserAccount register(@RequestBody UserAccount user) {
         user.setActive(true);
         return service.create(user);
     }
 
-    // POST /auth/login
     @PostMapping("/login")
-    public UserAccount login(@RequestBody UserAccount user) {
-        return service.login(user.getEmail(), user.getPasswordHash());
+    public UserAccount login(@RequestBody UserAccount request) {
+        return service.login(
+                request.getEmail(),
+                request.getPasswordHash()
+        );
     }
 }
