@@ -1,48 +1,43 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import java.io.Serializable;
-
 @Entity
-@Table(name = "device_catalog_items")
-public class DeviceCatalogItem implements Serializable {
+@Table(
+    name = "device_catalog_items",
+    uniqueConstraints = @UniqueConstraint(columnNames = "device_code")
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DeviceCatalogItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String name;
+    @Column(name = "device_code", nullable = false, unique = true)
+    private String deviceCode;
 
     @NotBlank
+    @Column(nullable = false)
+    private String deviceType;
+
+    @NotBlank
+    @Column(nullable = false)
     private String model;
 
-    @NotBlank
-    private String manufacturer;
+    @NotNull
+    @Min(1)
+    @Column(nullable = false)
+    private Integer maxAllowedPerEmployee;
 
     @NotNull
-    @Min(0)
-    private Integer quantity;
-
-    @NotNull
+    @Column(nullable = false)
     private Boolean active;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-
-    public String getManufacturer() { return manufacturer; }
-    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
-
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
-
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    @PrePersist
+    void validate() {
+        if (maxAllowedPerEmployee < 1) {
+            throw new BadRequestException("maxAllowedPerEmployee must be >= 1");
+        }
+    }
 }
