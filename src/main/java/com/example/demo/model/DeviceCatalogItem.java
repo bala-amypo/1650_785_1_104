@@ -46,10 +46,6 @@ public class DeviceCatalogItem {
     @Column(nullable = false)
     private Boolean active;
 
-    @PrePersist
-    void validate() {
-        if (maxAllowedPerEmployee < 1) {
-            throw new BadRequestException("maxAllowedPerEmployee must be >= 1");
-        }
-    }
+   
+    
 }
