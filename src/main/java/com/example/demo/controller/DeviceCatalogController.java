@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.service.DeviceCatalogItemService;
+import com.example.demo.service.DeviceCatalogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,30 +11,30 @@ import java.util.List;
 @RequestMapping("/device-catalog")
 public class DeviceCatalogController {
 
-    private final DeviceCatalogItemService deviceCatalogItemService;
+    private final DeviceCatalogService deviceCatalogService;
 
-    public DeviceCatalogController(DeviceCatalogItemService deviceCatalogItemService) {
-        this.deviceCatalogItemService = deviceCatalogItemService;
+    public DeviceCatalogController(DeviceCatalogService deviceCatalogService) {
+        this.deviceCatalogService = deviceCatalogService;
     }
 
     @PostMapping
     public ResponseEntity<DeviceCatalogItem> createDevice(@RequestBody DeviceCatalogItem item) {
-        return ResponseEntity.ok(deviceCatalogItemService.createDevice(item));
+        return ResponseEntity.ok(deviceCatalogService.createDevice(item));
     }
 
     @GetMapping
     public ResponseEntity<List<DeviceCatalogItem>> getAllDevices() {
-        return ResponseEntity.ok(deviceCatalogItemService.getAllDevices());
+        return ResponseEntity.ok(deviceCatalogService.getAllDevices());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DeviceCatalogItem> getDeviceById(@PathVariable Long id) {
-        return ResponseEntity.ok(deviceCatalogItemService.getDeviceById(id));
+        return ResponseEntity.ok(deviceCatalogService.getDeviceById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
-        deviceCatalogItemService.deleteDevice(id);
+        deviceCatalogService.deleteDevice(id);
         return ResponseEntity.noContent().build();
     }
 }
