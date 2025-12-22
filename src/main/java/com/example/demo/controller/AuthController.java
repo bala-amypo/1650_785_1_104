@@ -102,7 +102,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam String username,
-                        @RequestParam String password) {
+                        @RequestParam String passwordHash) {
 
         Optional<UserAccount> userOpt = repository.findByUsername(username);
 
