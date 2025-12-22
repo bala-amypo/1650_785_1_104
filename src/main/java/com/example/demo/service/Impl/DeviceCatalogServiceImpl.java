@@ -1,53 +1,46 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.entity.DeviceCatalog;
 import com.example.demo.exception.BadRequestException;
-import com.example.demo.repository.DeviceCatalogRepository;
-import com.example.demo.service.DeviceCatalogService;
+import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.repository.DeviceCatalogItemRepository;
+import com.example.demo.service.DeviceCatalogItemService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DeviceCatalogServiceImpl implements DeviceCatalogService {
+public class DeviceCatalogItemServiceImpl implements DeviceCatalogItemService {
 
-    private final DeviceCatalogRepository deviceCatalogRepository;
+    private final DeviceCatalogItemRepository repository;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogRepository deviceCatalogRepository) {
-        this.deviceCatalogRepository = deviceCatalogRepository;
+    public DeviceCatalogItemServiceImpl(DeviceCatalogItemRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public DeviceCatalog createDevice(DeviceCatalog deviceCatalog) {
+    public DeviceCatalogItem createDevice(DeviceCatalogItem item) {
 
-        if (deviceCatalog.getDeviceName() == null || deviceCatalog.getDeviceName().isBlank()) {
-            throw new BadRequestException("Device name must not be empty");
-        }
-
-        if (deviceCatalog.getDeviceType() == null || deviceCatalog.getDeviceType().isBlank()) {
-            throw new BadRequestException("Device type must not be empty");
-        }
-
-        if (deviceCatalog.getMaxAllowedDevices() < 1) {
+        // ✅ ONLY REQUIRED VALIDATION
+        if (item.getMaxAllowedDevices() < 1) {
             throw new BadRequestException("Max devices allowed must be >= 1");
         }
 
-        return deviceCatalogRepository.save(deviceCatalog);
+        return repository.save(item);
     }
 
     @Override
-    public List<DeviceCatalog> getAllDevices() {
-        return deviceCatalogRepository.findAll();
+    public List<DeviceCatalogItem> getAllDevices() {
+        return repository.findAll();
     }
 
     @Override
-    public DeviceCatalog getDeviceById(Long id) {
-        return deviceCatalogRepository.findById(id)
+    public DeviceCatalogItem getDeviceById(Long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Device not found"));
     }
 
     @Override
     public void deleteDevice(Long id) {
-        deviceCatalogRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }
