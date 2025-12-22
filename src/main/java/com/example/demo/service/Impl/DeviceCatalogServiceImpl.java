@@ -20,6 +20,7 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
     public DeviceCatalogItem updateActive(Long id, Boolean active) {
         DeviceCatalogItem item = repo.findById(id).orElse(null);
+            item.setActive(active);
             return repo.save(item);
         }
         return null;
