@@ -100,25 +100,13 @@ public class AuthController {
         this.repository = repository;
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String passwordHash) {
+    @PostMapping("/register")
+    public UserAccount register(@RequestBody UserAccount user) {
+        return repository.save(user);
+    }
 
-        Optional<UserAccount> userOpt = repository.findByUsername(username);
-
-        if (userOpt.isEmpty()) {
-            return "Invalid username";
-        }
-
-        UserAccount user = userOpt.get();
-        if (!user.getPasswordHash().equals(passwordHash)) {
-    return "Invalid password";
-}
-
-        // if (!user.getPassword().equals(password)) {
-        //     return "Invalid password";
-        // }
-
-        return "Login successful";
+    @GetMapping("/login/{username}")
+    public Optional<UserAccount> login(@PathVariable String username) {
+        return repository.findByUsername(username);
     }
 }
