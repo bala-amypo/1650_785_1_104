@@ -14,14 +14,12 @@ public class AuthController {
         this.userAccountRepository = userAccountRepository;
     }
 
-    // POST /auth/register
     @PostMapping("/register")
     public UserAccount register(@RequestBody UserAccount user) {
         user.setActive(true);   // ensure active
         return userAccountRepository.save(user);
     }
 
-    // POST /auth/login
     @PostMapping("/login")
     public UserAccount login(@RequestBody UserAccount request) {
 
@@ -35,6 +33,6 @@ public class AuthController {
             }
         }
 
-        return null; // test-friendly
+        return null; 
     }
 }
