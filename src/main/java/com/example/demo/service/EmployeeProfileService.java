@@ -7,7 +7,7 @@ import java.util.List;
 //     EmployeeProfile getById(Long id);
 //     EmployeeProfile updateStatus(Long id, Boolean active);
 // }
-// public interface EmployeeProfileService {
+public interface EmployeeProfileService {
 //     EmployeeProfile createEmployee(EmployeeProfile employee);
 //     EmployeeProfile getEmployeeById(Long id);
 //     List<EmployeeProfile> getAllEmployees();
@@ -24,3 +24,4 @@ EmployeeProfile update(Long id, EmployeeProfile employee);
 void delete(Long id);
 
 EmployeeProfile updateStatus(Long id, boolean active); // if you use status update
+}
