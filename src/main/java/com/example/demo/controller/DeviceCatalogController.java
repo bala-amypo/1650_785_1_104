@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.DeviceCatalog;
+import com.example.demo.entity.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +18,17 @@ public class DeviceCatalogController {
     }
 
     @PostMapping
-    public ResponseEntity<DeviceCatalog> createDevice(@RequestBody DeviceCatalog deviceCatalog) {
+    public ResponseEntity<DeviceCatalogItem> createDevice(@RequestBody DeviceCatalogItem deviceCatalog) {
         return ResponseEntity.ok(deviceCatalogService.createDevice(deviceCatalog));
     }
 
     @GetMapping
-    public ResponseEntity<List<DeviceCatalog>> getAllDevices() {
+    public ResponseEntity<List<DeviceCatalogItem>> getAllDevices() {
         return ResponseEntity.ok(deviceCatalogService.getAllDevices());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DeviceCatalog> getDevice(@PathVariable Long id) {
+    public ResponseEntity<DeviceCatalogItem> getDevice(@PathVariable Long id) {
         return ResponseEntity.ok(deviceCatalogService.getDeviceById(id));
     }
 

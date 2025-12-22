@@ -1,3 +1,15 @@
+package com.example.demo.model;
+// import jakarta.validation.constraints.NotBlank;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
+// import Lombok.setter
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 @Entity
 @Table(
     name = "device_catalog_items",
