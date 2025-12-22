@@ -1,48 +1,58 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "device_catalog_items")
-public class DeviceCatalogItem implements Serializable {
+@Table(name = "device_catalog")
+public class DeviceCatalog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String name;
+    @Column(nullable = false)
+    private String deviceName;
 
-    @NotBlank
-    private String model;
+    @Column(nullable = false)
+    private String deviceType;
 
-    @NotBlank
-    private String manufacturer;
+    @Column(nullable = false)
+    private int maxAllowedDevices;
 
-    @NotNull
-    @Min(0)
-    private Integer quantity;
+    public DeviceCatalog() {
+    }
 
-    @NotNull
-    private Boolean active;
+    public DeviceCatalog(String deviceName, String deviceType, int maxAllowedDevices) {
+        this.deviceName = deviceName;
+        this.deviceType = deviceType;
+        this.maxAllowedDevices = maxAllowedDevices;
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getDeviceName() {
+        return deviceName;
+    }
 
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
-    public String getManufacturer() { return manufacturer; }
-    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
+    public String getDeviceType() {
+        return deviceType;
+    }
 
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public int getMaxAllowedDevices() {
+        return maxAllowedDevices;
+    }
+
+    public void setMaxAllowedDevices(int maxAllowedDevices) {
+        this.maxAllowedDevices = maxAllowedDevices;
+    }
 }
