@@ -6,30 +6,37 @@ import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repo;
+    private final DeviceCatalogItemRepository repository;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
-        this.repo = repo;
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
+        this.repository = repository;
     }
 
-    public DeviceCatalogItem create(DeviceCatalogItem item) {
-        return repo.save(item);
-    }
-
-    public DeviceCatalogItem updateActive(Long id, Boolean active) {
-        DeviceCatalogItem item = repo.findById(id).orElse(null);
-        if (item != null) {
-            item.setActive(active);
-            return repo.save(item);
+    @Override
+    public DeviceCatalogItem createDevice(DeviceCatalogItem item) {
+        // Optional simple check
+        if (item.getMaxAllowedPerEmployee() < 1) {
+            item.setMaxAllowedPerEmployee(1);
         }
-        return null;
+        return repository.save(item);
     }
 
-    public List<DeviceCatalogItem> getAll() {
-        return repo.findAll();
+    @Override
+    public List<DeviceCatalogItem> getAllDevices() {
+        return repository.findAll();
+    }
+
+    @Override
+    public DeviceCatalogItem getDeviceById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteDevice(Long id) {
+        repository.deleteById(id);
     }
 }
