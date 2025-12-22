@@ -15,7 +15,7 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
+    public EmployeeProfile create(@Valid @RequestBody EmployeeProfile employee) {
         return service.create(employee);
     }
 
