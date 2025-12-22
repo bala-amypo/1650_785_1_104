@@ -33,39 +33,55 @@ import java.util.List;
 // }
 package com.example.demo.service.impl;
 
-import com.example.demo.service.*;
-import com.example.demo.repository.*;
-import com.example.demo.model.*;
-import com.example.demo.exception.*;
-import java.util.*;
+import com.example.demo.model.EmployeeProfile;
+import com.example.demo.repository.EmployeeProfileRepository;
+import com.example.demo.service.EmployeeProfileService;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.exception.BadRequestException;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repo;
+    private final EmployeeProfileRepository repository;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
-        this.repo = repo;
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
+        this.repository = repository;
     }
 
-    public EmployeeProfile createEmployee(EmployeeProfile employee) {
-        if (repo.findByEmployeeId(employee.getEmployeeId()).isPresent()) {
-            throw new BadRequestException("employeeId already exists");
+    @Override
+    public EmployeeProfile create(EmployeeProfile employee) {
+        if (repository.existsByEmployeeId(employee.getEmployeeId())) {
+            throw new BadRequestException("Employee ID already exists");
         }
-        return repo.save(employee);
+        return repository.save(employee);
     }
 
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repo.findById(id)
+    @Override
+    public EmployeeProfile getById(Long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 
-    public List<EmployeeProfile> getAllEmployees() {
-        return repo.findAll();
+    @Override
+    public List<EmployeeProfile> getAll() {
+        return repository.findAll();
     }
 
-    public void updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setActive(active);
-        repo.save(e);
+    @Override
+    public EmployeeProfile update(Long id, EmployeeProfile updated) {
+        EmployeeProfile existing = getById(id);
+        existing.setFullName(updated.getFullName());
+        existing.setDepartment(updated.getDepartment());
+        existing.setJobRole(updated.getJobRole());
+        existing.setActive(updated.getActive());
+        return repository.save(existing);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.delete(getById(id));
     }
 }
