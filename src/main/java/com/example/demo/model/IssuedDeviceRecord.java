@@ -28,9 +28,8 @@ public class IssuedDeviceRecord implements Serializable {
     private Boolean returned;
 
     @NotNull
-    private String deviceStatus; // replaced enum with String
-
-    // Getters and Setters
+    private String deviceStatus;
+  
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

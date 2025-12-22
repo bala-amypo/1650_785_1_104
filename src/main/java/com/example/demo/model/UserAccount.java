@@ -26,9 +26,8 @@ public class UserAccount implements Serializable {
     private Boolean active;
 
     @NotNull
-    private String role;  // replaced enum with String
-
-    // Getters and Setters
+    private String role; 
+   
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
