@@ -61,4 +61,9 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     public List<EligibilityCheckRecord> getAll() {
         return repository.findAll();
     }
+    @Override
+public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
+    return repository.findByEmployeeId(employeeId);
+}
+
 }

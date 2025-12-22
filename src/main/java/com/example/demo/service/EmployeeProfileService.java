@@ -24,4 +24,7 @@ EmployeeProfile update(Long id, EmployeeProfile employee);
 void delete(Long id);
 
 EmployeeProfile updateStatus(Long id, boolean active); // if you use status update
+
+// EmployeeProfile updateStatus(Long id, boolean active);
+boolean existsByEmployeeId(String employeeId);
 }

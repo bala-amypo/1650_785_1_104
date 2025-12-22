@@ -18,6 +18,7 @@ import java.util.List;
 public interface EligibilityCheckService {
 
     EligibilityCheckRecord validate(Long employeeId, Long deviceItemId);
+// List<EligibilityCheckRecord> getByEmployee(Long employeeId);
 
     List<EligibilityCheckRecord> getByEmployee(Long employeeId);
 

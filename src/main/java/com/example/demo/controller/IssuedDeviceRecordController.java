@@ -31,7 +31,7 @@
 //         return service.getByEmployee(employeeId);
 //     }
 // }
-package com.example.demo.controller;
+pacpackage com.example.demo.controller;
 
 import com.example.demo.model.IssuedDeviceRecord;
 import com.example.demo.service.IssuedDeviceRecordService;
@@ -50,13 +50,13 @@ public class IssuedDeviceRecordController {
     }
 
     @PostMapping
-    public IssuedDeviceRecord issue(@RequestBody IssuedDeviceRecord record) {
+    public IssuedDeviceRecord issueDevice(@RequestBody IssuedDeviceRecord record) {
         return service.issueDevice(record);
     }
 
-    @PutMapping("/return/{id}")
-    public IssuedDeviceRecord returnDevice(@PathVariable Long id) {
-        return service.returnDevice(id);
+    @PostMapping("/return/{id}")
+    public void returnDevice(@PathVariable Long id) {  // service return type must be void
+        service.returnDevice(id);
     }
 
     @GetMapping
