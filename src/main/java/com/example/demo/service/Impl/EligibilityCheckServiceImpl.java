@@ -34,7 +34,7 @@
 //         return repo.findByEmployeeId(employeeId);
 //     }
 // }
-package compackage com.example.demo.service.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.repository.EligibilityCheckRepository;
