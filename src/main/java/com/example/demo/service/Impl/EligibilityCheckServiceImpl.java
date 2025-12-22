@@ -34,7 +34,7 @@
 //         return repo.findByEmployeeId(employeeId);
 //     }
 // }
-package com.example.demo.service.impl;
+// package com.epackage com.example.demo.service.impl;
 
 import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.repository.EligibilityCheckRecordRepository;
@@ -51,16 +51,19 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
         this.repository = repository;
     }
-// @Override
-// public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-//     return repository.validate(employeeId, deviceItemId);
-// }
 
-    // @Override
-    // public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-    //     // Your validation logic here
-    //     return repository.validate(employeeId, deviceItemId);
-    // }
+    @Override
+    public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
+        // Check if record already exists
+        return repository.findByEmployeeIdAndDeviceItemId(employeeId, deviceItemId)
+                .orElseGet(() -> {
+                    EligibilityCheckRecord record = new EligibilityCheckRecord();
+                    record.setEmployeeId(employeeId);
+                    record.setDeviceItemId(deviceItemId);
+                    record.setEligible(true); // Example business logic
+                    return repository.save(record);
+                });
+    }
 
     @Override
     public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
@@ -68,12 +71,12 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
-        return repository.save(record);
+    public List<EligibilityCheckRecord> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public List<EligibilityCheckRecord> getAll() {
-        return repository.findAll();
+    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
+        return repository.save(record);
     }
 }

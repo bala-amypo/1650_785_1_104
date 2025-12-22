@@ -26,15 +26,26 @@
 
 //     List<EligibilityCheckRecord> getAll();
 // }
+// package com.example.demo.service;
+
+// import com.example.demo.model.EligibilityCheckRecord;
+
+// import java.util.List;
+
+// public interface EligibilityCheckService {
+//     EligibilityCheckRecord validate(Long employeeId, Long deviceItemId);
+//     List<EligibilityCheckRecord> getByEmployee(Long employeeId);
+//     EligibilityCheckRecord save(EligibilityCheckRecord record);
+//     List<EligibilityCheckRecord> getAll();
+// }
 package com.example.demo.service;
 
 import com.example.demo.model.EligibilityCheckRecord;
-
 import java.util.List;
 
 public interface EligibilityCheckService {
     EligibilityCheckRecord validate(Long employeeId, Long deviceItemId);
     List<EligibilityCheckRecord> getByEmployee(Long employeeId);
-    EligibilityCheckRecord save(EligibilityCheckRecord record);
     List<EligibilityCheckRecord> getAll();
+    EligibilityCheckRecord save(EligibilityCheckRecord record);
 }
