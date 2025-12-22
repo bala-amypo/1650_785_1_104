@@ -1,47 +1,48 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "device_catalog")
-public class DeviceCatalogItem {
+@Table(name = "device_catalog_items")
+public class DeviceCatalogItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String deviceName;
-    private String deviceType;
-    private int maxAllowedDevices;
+    @NotBlank
+    private String name;
 
-    public DeviceCatalogItem() {
-    }
+    @NotBlank
+    private String model;
 
-    public Long getId() {
-        return id;
-    }
+    @NotBlank
+    private String manufacturer;
 
-    public String getDeviceName() {
-        return deviceName;
-    }
+    @NotNull
+    @Min(0)
+    private Integer quantity;
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
-    }
+    @NotNull
+    private Boolean active;
 
-    public String getDeviceType() {
-        return deviceType;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public int getMaxAllowedDevices() {
-        return maxAllowedDevices;
-    }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
 
-    public void setMaxAllowedDevices(int maxAllowedDevices) {
-        this.maxAllowedDevices = maxAllowedDevices;
-    }
+    public String getManufacturer() { return manufacturer; }
+    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
+
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }

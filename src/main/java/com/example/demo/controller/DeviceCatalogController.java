@@ -1,41 +1,40 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.service.DeviceCatalogItemService;
+import com.example.demo.entity.DeviceCatalog;
+import com.example.demo.service.DeviceCatalogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/device-catalog")
-public class DeviceCatalogItemController {
+@RequestMapping("/devices")
+public class DeviceCatalogController {
 
-    private final DeviceCatalogItemService service;
+    private final DeviceCatalogService deviceCatalogService;
 
-    public DeviceCatalogItemController(DeviceCatalogItemService service) {
-        this.service = service;
+    public DeviceCatalogController(DeviceCatalogService deviceCatalogService) {
+        this.deviceCatalogService = deviceCatalogService;
     }
 
     @PostMapping
-    public ResponseEntity<DeviceCatalogItem> create(
-            @RequestBody DeviceCatalogItem item) {
-        return ResponseEntity.ok(service.createDevice(item));
+    public ResponseEntity<DeviceCatalog> createDevice(@RequestBody DeviceCatalog deviceCatalog) {
+        return ResponseEntity.ok(deviceCatalogService.createDevice(deviceCatalog));
     }
 
     @GetMapping
-    public ResponseEntity<List<DeviceCatalogItem>> getAll() {
-        return ResponseEntity.ok(service.getAllDevices());
+    public ResponseEntity<List<DeviceCatalog>> getAllDevices() {
+        return ResponseEntity.ok(deviceCatalogService.getAllDevices());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DeviceCatalogItem> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getDeviceById(id));
+    public ResponseEntity<DeviceCatalog> getDevice(@PathVariable Long id) {
+        return ResponseEntity.ok(deviceCatalogService.getDeviceById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.deleteDevice(id);
+    public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
+        deviceCatalogService.deleteDevice(id);
         return ResponseEntity.noContent().build();
     }
 }

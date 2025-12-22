@@ -1,46 +1,31 @@
-package com.example.demo.service.Impl;
+package com.example.demo.serviceimpl;
 
-import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
-import com.example.demo.service.DeviceCatalogItemService;
+import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 @Service
-public class DeviceCatalogItemServiceImpl implements DeviceCatalogItemService {
+public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repository;
+    private final DeviceCatalogItemRepository repo;
 
-    public DeviceCatalogItemServiceImpl(DeviceCatalogItemRepository repository) {
-        this.repository = repository;
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public DeviceCatalogItem createDevice(DeviceCatalogItem item) {
+    public DeviceCatalogItem create(DeviceCatalogItem item) {
+        return repo.save(item);
+    }
 
-        // ✅ ONLY REQUIRED VALIDATION
-        if (item.getMaxAllowedDevices() < 1) {
-            throw new BadRequestException("Max devices allowed must be >= 1");
+    public DeviceCatalogItem updateActive(Long id, Boolean active) {
+        DeviceCatalogItem item = repo.findById(id).orElse(null);
+            return repo.save(item);
         }
-
-        return repository.save(item);
+        return null;
     }
 
-    @Override
-    public List<DeviceCatalogItem> getAllDevices() {
-        return repository.findAll();
-    }
-
-    @Override
-    public DeviceCatalogItem getDeviceById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BadRequestException("Device not found"));
-    }
-
-    @Override
-    public void deleteDevice(Long id) {
-        repository.deleteById(id);
+    public List<DeviceCatalogItem> getAll() {
+        return repo.findAll();
     }
 }
