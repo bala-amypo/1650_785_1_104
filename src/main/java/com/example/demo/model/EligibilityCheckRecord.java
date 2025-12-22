@@ -1,9 +1,21 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+// import jakarta.persistence.*;
+// import java.time.LocalDateTime;
+// @Getter
+// @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+// @Entity
 @Entity
+@Table(name = "eligibility_check_records")
+@Getter
+@Setter
 public class EligibilityCheckRecord {
 
     @Id
@@ -12,53 +24,6 @@ public class EligibilityCheckRecord {
 
     private Long employeeId;
     private Long deviceItemId;
-    private Boolean isEligible;
-    private String reason;
-    private LocalDateTime checkedAt;
+    private boolean eligible;
 
-    @PrePersist
-    public void onCheck() {
-        checkedAt = LocalDateTime.now();
-    }
-
-   
-    public Long getId() {
-        return id;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Long getDeviceItemId() {
-        return deviceItemId;
-    }
-
-    public void setDeviceItemId(Long deviceItemId) {
-        this.deviceItemId = deviceItemId;
-    }
-
-    public Boolean getIsEligible() {
-        return isEligible;
-    }
-
-    public void setIsEligible(Boolean isEligible) {
-        this.isEligible = isEligible;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public LocalDateTime getCheckedAt() {
-        return checkedAt;
-    }
 }

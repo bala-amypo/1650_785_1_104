@@ -116,7 +116,6 @@ public class EligibilityCheckController {
         this.service = service;
     }
 
-    // Validate an employee and device
     @PostMapping("/validate/{employeeId}/{deviceItemId}")
     public EligibilityCheckRecord validate(
             @PathVariable Long employeeId,
@@ -124,19 +123,16 @@ public class EligibilityCheckController {
         return service.validate(employeeId, deviceItemId);
     }
 
-    // Save a new eligibility check record
     @PostMapping
     public EligibilityCheckRecord save(@RequestBody EligibilityCheckRecord record) {
         return service.save(record);
     }
 
-    // Get all eligibility checks
     @GetMapping
     public List<EligibilityCheckRecord> getAll() {
         return service.getAll();
     }
 
-    // Get all eligibility checks for a specific employee
     @GetMapping("/employee/{employeeId}")
     public List<EligibilityCheckRecord> getByEmployee(@PathVariable Long employeeId) {
         return service.getByEmployee(employeeId);
