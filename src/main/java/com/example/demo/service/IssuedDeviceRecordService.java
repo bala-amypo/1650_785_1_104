@@ -17,6 +17,18 @@
 //     List<IssuedDeviceRecord> getAll();
 //     List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId);
 // }
+// package com.example.demo.service;
+
+// import com.example.demo.model.IssuedDeviceRecord;
+
+// import java.util.List;
+
+// public interface IssuedDeviceRecordService {
+//     IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
+//     void returnDevice(Long id);  // void type
+//     List<IssuedDeviceRecord> getAll();
+//     List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId);
+// }
 package com.example.demo.service;
 
 import com.example.demo.model.IssuedDeviceRecord;
@@ -24,8 +36,12 @@ import com.example.demo.model.IssuedDeviceRecord;
 import java.util.List;
 
 public interface IssuedDeviceRecordService {
+
+    int countActiveDeviceForEmployee(Long employeeId);
+
+    List<IssuedDeviceRecord> getDevicesByEmployeeId(Long employeeId);
+
     IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
-    void returnDevice(Long id);  // void type
-    List<IssuedDeviceRecord> getAll();
-    List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId);
+
+    void deactivateDevice(Long id);
 }

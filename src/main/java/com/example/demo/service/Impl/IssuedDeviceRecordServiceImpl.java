@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+// package com.example.demo.service.impl;
 
 // import java.util.List;
 // import com.example.demo.repository.IssuedDeviceRecordRepository;
@@ -34,9 +34,48 @@ package com.example.demo.service.impl;
 //     }
 // }package com.example.demo.service.impl;
 
+// import com.example.demo.model.IssuedDeviceRecord;
+// import com.example.demo.repository.IssuedDeviceRecordRepository;
+// import com.example.demo.service.IssuedDeviceRecordService;
+// import org.springframework.stereotype.Service;
+
+// import java.util.List;
+
+// @Service
+// public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
+
+//     private final IssuedDeviceRecordRepository repository;
+
+//     public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repository) {
+//         this.repository = repository;
+//     }
+
+//     @Override
+//     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
+//         return repository.save(record);
+//     }
+
+//     @Override
+//     public void returnDevice(Long id) {
+//         repository.deleteById(id);
+//     }
+
+//     @Override
+//     public List<IssuedDeviceRecord> getAll() {
+//         return repository.findAll();
+//     }
+
+//     @Override
+//     public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
+//         return repository.findByEmployeeId(employeeId);
+//     }
+// }
+package com.example.demo.service.impl;
+
 import com.example.demo.model.IssuedDeviceRecord;
 import com.example.demo.repository.IssuedDeviceRecordRepository;
 import com.example.demo.service.IssuedDeviceRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,29 +83,30 @@ import java.util.List;
 @Service
 public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
 
-    private final IssuedDeviceRecordRepository repository;
+    @Autowired
+    private IssuedDeviceRecordRepository repository;
 
-    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repository) {
-        this.repository = repository;
+    @Override
+    public int countActiveDeviceForEmployee(Long employeeId) {
+        return repository.countActiveDeviceForEmployee(employeeId);
+    }
+
+    @Override
+    public List<IssuedDeviceRecord> getDevicesByEmployeeId(Long employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
 
     @Override
     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
+        record.setActive(true);
         return repository.save(record);
     }
 
     @Override
-    public void returnDevice(Long id) {
-        repository.deleteById(id);
-    }
-
-    @Override
-    public List<IssuedDeviceRecord> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
-        return repository.findByEmployeeId(employeeId);
+    public void deactivateDevice(Long id) {
+        IssuedDeviceRecord record = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Device record not found"));
+        record.setActive(false);
+        repository.save(record);
     }
 }
