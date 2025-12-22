@@ -19,7 +19,7 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
     }
 
     public DeviceCatalogItem updateActive(Long id, Boolean active) {
-        DeviceCatalogItem item = repo.findById(id).orElse(null);
+        DeviceCatalogItem item = repo.findById(id).orElseThrow(()->new BadRequestException("Not eligible"));
         if (item != null) {
             item.setActive(active);
             return repo.save(item);
