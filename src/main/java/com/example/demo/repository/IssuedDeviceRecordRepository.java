@@ -12,5 +12,7 @@ import java.util.List;
 // }
 public interface IssuedDeviceRecordRepository extends JpaRepository<IssuedDeviceRecord, Long> {
     int countActiveDeviceForEmployee(Long employeeId);
+    List<IssuedDeviceRecord> findByEmployeeId(Long employeeId);
+
     Optional<IssuedDeviceRecord> findActiveByEmployeeAndDevice(Long employeeId, Long deviceItemId);
 }
