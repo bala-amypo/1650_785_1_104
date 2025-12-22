@@ -41,18 +41,18 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.service.DeviceCatalogItemService;
+import com.example.demo.service.DeviceCatalogService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/devices")
-public class DeviceCatalogItemController {
+public class DeviceCatalogController {
 
-    private final DeviceCatalogItemService service;
+    private final DeviceCatalogService service;
 
-    public DeviceCatalogItemController(DeviceCatalogItemService service) {
+    public DeviceCatalogController(DeviceCatalogService service) {
         this.service = service;
     }
 
