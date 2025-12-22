@@ -32,18 +32,18 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.EligibilityCheckRecord;
-import com.example.demo.service.EligibilityCheckRecordService;
+import com.example.demo.service.EligibilityCheckService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/eligibility-checks")
-public class EligibilityCheckRecordController {
+public class EligibilityCheckController {
 
-    private final EligibilityCheckRecordService service;
+    private final EligibilityCheckService service;
 
-    public EligibilityCheckRecordController(EligibilityCheckRecordService service) {
+    public EligibilityCheckController(EligibilityCheckService service) {
         this.service = service;
     }
 
