@@ -36,8 +36,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.exception.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,43 +43,56 @@ import java.util.List;
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repositor;
+    private final EmployeeProfileRepository repository;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repositor) {
-        this.repositor = repositor;
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public EmployeeProfile create(EmployeeProfile employee) {
-        if (repositor.existsByEmployeeId(employee.getEmployeeId())) {
-            throw new BadRequestException("Employee ID already exists");
-        }
-        return repositor.save(employee);
+        return repository.save(employee);
     }
 
     @Override
     public EmployeeProfile getById(Long id) {
-        return repositor.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<EmployeeProfile> getAll() {
-        return repositor.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public EmployeeProfile update(Long id, EmployeeProfile updated) {
-        EmployeeProfile existing = getById(id);
-        existing.setFullName(updated.getFullName());
-        existing.setDepartment(updated.getDepartment());
-        existing.setJobRole(updated.getJobRole());
-        existing.setActive(updated.getActive());
-        return repositor.save(existing);
+    public EmployeeProfile update(Long id, EmployeeProfile employee) {
+        EmployeeProfile existing = repository.findById(id).orElse(null);
+        if (existing != null) {
+            existing.setName(employee.getName());
+            existing.setDepartment(employee.getDepartment());
+            existing.setActive(employee.isActive());
+            return repository.save(existing);
+        }
+        return null;
     }
 
     @Override
     public void delete(Long id) {
-        repositor.delete(getById(id));
+        repository.deleteById(id);
+    }
+
+    @Override
+    public EmployeeProfile updateStatus(Long id, boolean active) {
+        EmployeeProfile emp = repository.findById(id).orElse(null);
+        if (emp != null) {
+            emp.setActive(active);
+            return repository.save(emp);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean existsByEmployeeId(String employeeId) {
+        return repository.existsByEmployeeId(employeeId);
     }
 }

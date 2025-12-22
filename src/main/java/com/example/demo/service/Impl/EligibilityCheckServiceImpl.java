@@ -34,10 +34,10 @@
 //         return repo.findByEmployeeId(employeeId);
 //     }
 // }
-package com.example.demo.service.impl;
+package compackage com.example.demo.service.impl;
 
 import com.example.demo.model.EligibilityCheckRecord;
-import com.example.demo.repository.EligibilityCheckRecordRepository;
+import com.example.demo.repository.EligibilityCheckRepository;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +46,21 @@ import java.util.List;
 @Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EligibilityCheckRecordRepository repository;
+    private final EligibilityCheckRepository repository;
 
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
+    public EligibilityCheckServiceImpl(EligibilityCheckRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
+        // Your validation logic here
+        return repository.validate(employeeId, deviceItemId);
+    }
+
+    @Override
+    public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
 
     @Override
@@ -61,9 +72,4 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     public List<EligibilityCheckRecord> getAll() {
         return repository.findAll();
     }
-    @Override
-public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
-    return repository.findByEmployeeId(employeeId);
-}
-
 }
