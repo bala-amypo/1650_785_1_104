@@ -16,7 +16,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public UserAccount register(@RequestBody UserAccount user) {
-        user.setActive(true);   // ensure active
+        user.setActive(true);  
         return userAccountRepository.save(user);
     }
 
