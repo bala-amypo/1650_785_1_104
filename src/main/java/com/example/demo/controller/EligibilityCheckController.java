@@ -67,11 +67,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/eligibility-checks")
-public class EligibilityCheckRecordController { // <-- rename file to match
+public class EligibilityCheckController { // <-- rename file to match
 
     private final EligibilityCheckService service;
 
-    public EligibilityCheckRecordController(EligibilityCheckService service) {
+    public EligibilityCheckController(EligibilityCheckService service) {
         this.service = service;
     }
 
