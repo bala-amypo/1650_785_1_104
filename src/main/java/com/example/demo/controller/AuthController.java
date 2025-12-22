@@ -111,10 +111,13 @@ public class AuthController {
         }
 
         UserAccount user = userOpt.get();
+        if (!user.getPasswordHash().equals(passwordHash)) {
+    return "Invalid password";
+}
 
-        if (!user.getPassword().equals(password)) {
-            return "Invalid password";
-        }
+        // if (!user.getPassword().equals(password)) {
+        //     return "Invalid password";
+        // }
 
         return "Login successful";
     }
