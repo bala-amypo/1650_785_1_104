@@ -31,7 +31,7 @@
 //         return service.getByEmployee(employeeId);
 //     }
 // }
-pacpackage com.example.demo.controller;
+package com.example.demo.controller;
 
 import com.example.demo.model.IssuedDeviceRecord;
 import com.example.demo.service.IssuedDeviceRecordService;
