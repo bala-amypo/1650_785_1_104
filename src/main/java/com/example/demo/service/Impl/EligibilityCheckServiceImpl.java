@@ -35,6 +35,7 @@
 //     }
 // }
 // package com.epackage com.example.demo.service.impl;
+package com.example.demo.service.Impl;
 
 import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.repository.EligibilityCheckRecordRepository;
@@ -53,21 +54,20 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-        // Check if record already exists
-        return repository.findByEmployeeIdAndDeviceItemId(employeeId, deviceItemId)
-                .orElseGet(() -> {
-                    EligibilityCheckRecord record = new EligibilityCheckRecord();
-                    record.setEmployeeId(employeeId);
-                    record.setDeviceItemId(deviceItemId);
-                    record.setEligible(true); // Example business logic
-                    return repository.save(record);
-                });
+    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
+        return repository.save(record);
     }
 
     @Override
-    public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
-        return repository.findByEmployeeId(employeeId);
+    public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
+        EligibilityCheckRecord record = new EligibilityCheckRecord();
+        record.setEmployeeId(employeeId);
+        record.setDeviceItemId(deviceItemId);
+
+        // Simple example: mark eligible if deviceId is even, else not eligible
+        record.setEligible(deviceItemId % 2 == 0);
+
+        return repository.save(record);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
-        return repository.save(record);
+    public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
 }
