@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-
+import jakarta.validation.Valid;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
 import org.springframework.web.bind.annotation.*;
