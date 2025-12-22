@@ -51,10 +51,10 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
         this.repository = repository;
     }
-@Override
-public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-    return repository.validate(employeeId, deviceItemId);
-}
+// @Override
+// public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
+//     return repository.validate(employeeId, deviceItemId);
+// }
 
     // @Override
     // public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
