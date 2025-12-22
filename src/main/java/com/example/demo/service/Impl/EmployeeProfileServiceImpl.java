@@ -1,7 +1,7 @@
 // package com.example.demo.serviceimpl;
 
 // import com.example.demo.model.*;
-// import com.example.demo.repository.*;
+// import com.example.demo.repositor.*;
 // import com.example.demo.service.*;
 // import org.springframework.stereotype.Service;
 // import java.util.List;
@@ -45,29 +45,29 @@ import java.util.List;
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repository;
+    private final EmployeeProfileRepository repositor;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
-        this.repository = repository;
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repositor) {
+        this.repositor = repositor;
     }
 
     @Override
     public EmployeeProfile create(EmployeeProfile employee) {
-        if (repository.existsByEmployeeId(employee.getEmployeeId())) {
+        if (repositor.existsByEmployeeId(employee.getEmployeeId())) {
             throw new BadRequestException("Employee ID already exists");
         }
-        return repository.save(employee);
+        return repositor.save(employee);
     }
 
     @Override
     public EmployeeProfile getById(Long id) {
-        return repository.findById(id)
+        return repositor.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 
     @Override
     public List<EmployeeProfile> getAll() {
-        return repository.findAll();
+        return repositor.findAll();
     }
 
     @Override
@@ -77,11 +77,11 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
         existing.setDepartment(updated.getDepartment());
         existing.setJobRole(updated.getJobRole());
         existing.setActive(updated.getActive());
-        return repository.save(existing);
+        return repositor.save(existing);
     }
 
     @Override
     public void delete(Long id) {
-        repository.delete(getById(id));
+        repositor.delete(getById(id));
     }
 }
