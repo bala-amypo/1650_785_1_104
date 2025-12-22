@@ -1,31 +1,20 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "device_catalog")
-public class DeviceCatalog {
+public class DeviceCatalogItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String deviceName;
-
-    @Column(nullable = false)
     private String deviceType;
-
-    @Column(nullable = false)
     private int maxAllowedDevices;
 
-    public DeviceCatalog() {
-    }
-
-    public DeviceCatalog(String deviceName, String deviceType, int maxAllowedDevices) {
-        this.deviceName = deviceName;
-        this.deviceType = deviceType;
-        this.maxAllowedDevices = maxAllowedDevices;
+    public DeviceCatalogItem() {
     }
 
     public Long getId() {
