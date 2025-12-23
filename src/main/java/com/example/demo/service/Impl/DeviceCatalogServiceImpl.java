@@ -110,7 +110,7 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
     @Override
     public DeviceCatalogItem getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found"));
     }
 
     @Override
