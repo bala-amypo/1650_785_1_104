@@ -91,6 +91,7 @@ import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
+import
 
 import java.util.List;
 
