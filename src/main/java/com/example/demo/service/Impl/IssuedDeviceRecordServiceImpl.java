@@ -37,34 +37,77 @@
 //                 .orElseThrow(() -> new RuntimeException("Device record not found"));
 //         record.setActive(false);
 //         repository.save(record);
+// //     }
+// // }
+// package com.example.demo.service.impl;
+
+// import com.example.demo.exception.BadRequestException;
+// import com.example.demo.model.IssuedDeviceRecord;
+// import com.example.demo.repository.*;
+// import com.example.demo.service.IssuedDeviceRecordService;
+
+// public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
+
+//     private final IssuedDeviceRecordRepository repo;
+
+//     public IssuedDeviceRecordServiceImpl(
+//             IssuedDeviceRecordRepository repo,
+//             EmployeeProfileRepository e,
+//             DeviceCatalogItemRepository d) {
+//         this.repo = repo;
 //     }
-// }
-package com.example.demo.service.impl;
 
-import com.example.demo.exception.BadRequestException;
+//     public IssuedDeviceRecord returnDevice(Long id) {
+//         IssuedDeviceRecord r = repo.findById(id)
+//                 .orElseThrow(() -> new BadRequestException("Record not found"));
+
+//         if ("RETURNED".equals(r.getStatus()))
+//             throw new BadRequestException("Device already returned");
+
+//         r.setStatus("RETURNED");
+//         return repo.save(r);
+//     }
+// }package com.example.demo.service.impl;
+
 import com.example.demo.model.IssuedDeviceRecord;
-import com.example.demo.repository.*;
+import com.example.demo.repository.IssuedDeviceRecordRepository;
 import com.example.demo.service.IssuedDeviceRecordService;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
 
-    private final IssuedDeviceRecordRepository repo;
+    private final IssuedDeviceRecordRepository repository;
 
-    public IssuedDeviceRecordServiceImpl(
-            IssuedDeviceRecordRepository repo,
-            EmployeeProfileRepository e,
-            DeviceCatalogItemRepository d) {
-        this.repo = repo;
+    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repository) {
+        this.repository = repository;
     }
 
-    public IssuedDeviceRecord returnDevice(Long id) {
-        IssuedDeviceRecord r = repo.findById(id)
-                .orElseThrow(() -> new BadRequestException("Record not found"));
+    @Override
+    public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
+        record.setStatus("ISSUED");
+        return repository.save(record);
+    }
 
-        if ("RETURNED".equals(r.getStatus()))
-            throw new BadRequestException("Device already returned");
+    @Override
+    public IssuedDeviceRecord updateStatus(Long id, String status) {
+        IssuedDeviceRecord record = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Issued record not found"));
 
-        r.setStatus("RETURNED");
-        return repo.save(r);
+        record.setStatus(status);
+        return repository.save(record);
+    }
+
+    @Override
+    public IssuedDeviceRecord getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Issued record not found"));
+    }
+
+    @Override
+    public List<IssuedDeviceRecord> getAllRecords() {
+        return repository.findAll();
     }
 }
