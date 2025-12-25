@@ -3,6 +3,9 @@ package com.example.demo.security;
 import com.example.demo.model.UserAccount;
 import io.jsonwebtoken.*;
 import java.util.Date;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class JwtTokenProvider {
     private String secretKey;
