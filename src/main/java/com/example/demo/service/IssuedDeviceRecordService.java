@@ -1,63 +1,20 @@
 
-// // package com.example.demo.service;
+package com.example.demo.service;
 
-// // import com.example.demo.model.IssuedDeviceRecord;
+import com.example.demo.model.IssuedDeviceRecord;
 
-// // import java.util.List;
-
-// // public interface IssuedDeviceRecordService {
-
-// //     int countActiveDeviceForEmployee(Long employeeId);
-
-// //     List<IssuedDeviceRecord> getDevicesByEmployeeId(Long employeeId);
-
-// //     IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
-
-// //     void deactivateDevice(Long id);
-// // // }
-// // public interface IssuedDeviceRecordService {
-// //     IssuedDeviceRecord returnDevice(Long id);
-// // }
-
-// package com.example.demo.service;
-
-// import com.example.demo.model.IssuedDeviceRecord;
-
-// public interface IssuedDeviceRecordService {
-//     IssuedDeviceRecord returnDevice(Long id);
-// }
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+public interface IssuedDeviceRecordService {
 
-@Service
-public class IssuedDeviceRecordService {
+    int countActiveDeviceForEmployee(Long employeeId);
 
-    private final IssuedDeviceRecordRepository repository;
+    List<IssuedDeviceRecord> getDevicesByEmployeeId(Long employeeId);
 
-    public IssuedDeviceRecordService(IssuedDeviceRecordRepository repository) {
-        this.repository = repository;
-    }
+    IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
 
-    public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
-        return repository.save(record);
-    }
-
-    public IssuedDeviceRecord updateStatus(Long id, String status) {
-        IssuedDeviceRecord record = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Record not found"));
-
-        record.setStatus(status);
-        return repository.save(record);
-    }
-
-    public IssuedDeviceRecord getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Record not found"));
-    }
-
-    public List<IssuedDeviceRecord> getAllRecords() {
-        return repository.findAll();
-    }
+    void deactivateDevice(Long id);
+// }
+public interface IssuedDeviceRecordService {
+    IssuedDeviceRecord returnDevice(Long id);
 }
