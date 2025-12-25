@@ -44,40 +44,76 @@
 //         repository.deleteById(id);
 //     }
 // }
+// package com.example.demo.service.impl;
+
+// import com.example.demo.exception.BadRequestException;
+// import com.example.demo.model.DeviceCatalogItem;
+// import com.example.demo.repository.DeviceCatalogItemRepository;
+// import com.example.demo.service.DeviceCatalogService;
+// import java.util.List;
+
+// public class DeviceCatalogServiceImpl implements DeviceCatalogService {
+
+//     private final DeviceCatalogItemRepository repo;
+
+//     public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
+//         this.repo = repo;
+//     }
+
+//     public DeviceCatalogItem createItem(DeviceCatalogItem item) {
+//         if (item.getMaxAllowedPerEmployee() == null || item.getMaxAllowedPerEmployee() <= 0)
+//             throw new BadRequestException("maxAllowedPerEmployee must be > 0");
+
+//         repo.findByDeviceCode(item.getDeviceCode())
+//                 .ifPresent(i -> { throw new BadRequestException("Device code exists"); });
+
+//         return repo.save(item);
+//     }
+
+//     public List<DeviceCatalogItem> getAllItems() {
+//         return repo.findAll();
+//     }
+
+//     public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
+//         DeviceCatalogItem item = repo.findById(id)
+//                 .orElseThrow(() -> new BadRequestException("Device not found"));
+//         item.setActive(active);
+//         return repo.save(item);
+//     }
+// }
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.repository.DeviceCatalogItemRepository;
+import com.example.demo.repository.DeviceCatalogRepository;
 import com.example.demo.service.DeviceCatalogService;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service   // ⭐ THIS IS THE KEY FIX
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repo;
+    private final DeviceCatalogRepository repository;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
-        this.repo = repo;
+    public DeviceCatalogServiceImpl(DeviceCatalogRepository repository) {
+        this.repository = repository;
     }
 
-    public DeviceCatalogItem createItem(DeviceCatalogItem item) {
-        if (item.getMaxAllowedPerEmployee() == null || item.getMaxAllowedPerEmployee() <= 0)
-            throw new BadRequestException("maxAllowedPerEmployee must be > 0");
-
-        repo.findByDeviceCode(item.getDeviceCode())
-                .ifPresent(i -> { throw new BadRequestException("Device code exists"); });
-
-        return repo.save(item);
+    @Override
+    public DeviceCatalogItem create(DeviceCatalogItem item) {
+        return repository.save(item);
     }
 
-    public List<DeviceCatalogItem> getAllItems() {
-        return repo.findAll();
+    @Override
+    public List<DeviceCatalogItem> getAll() {
+        return repository.findAll();
     }
 
-    public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
-        DeviceCatalogItem item = repo.findById(id)
-                .orElseThrow(() -> new BadRequestException("Device not found"));
-        item.setActive(active);
-        return repo.save(item);
+    @Override
+    public DeviceCatalogItem deactivate(Long id) {
+        DeviceCatalogItem item = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Device not found"));
+        item.setActive(false);
+        return repository.save(item);
     }
 }
