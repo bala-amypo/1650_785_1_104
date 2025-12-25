@@ -67,7 +67,8 @@
 //         r.setStatus("RETURNED");
 //         return repo.save(r);
 //     }
-// }package com.example.demo.service.impl;
+// }
+package com.example.demo.service.impl;
 
 import com.example.demo.model.IssuedDeviceRecord;
 import com.example.demo.repository.IssuedDeviceRecordRepository;
