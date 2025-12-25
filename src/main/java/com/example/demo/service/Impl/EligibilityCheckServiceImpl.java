@@ -44,18 +44,46 @@
 //         return repository.findByEmployeeId(employeeId);
 //     }
 // }
+// package com.example.demo.service.impl;
+
+// import com.example.demo.repository.*;
+// import com.example.demo.service.EligibilityCheckService;
+
+// public class EligibilityCheckServiceImpl implements EligibilityCheckService {
+
+//     public EligibilityCheckServiceImpl(
+//             EmployeeProfileRepository e,
+//             DeviceCatalogItemRepository d,
+//             IssuedDeviceRecordRepository i,
+//             PolicyRuleRepository p,
+//             EligibilityCheckRecordRepository r) {
+//     }
+// }
 package com.example.demo.service.impl;
 
-import com.example.demo.repository.*;
+import com.example.demo.model.EligibilityCheckRecord;
+import com.example.demo.repository.EligibilityCheckRepository;
 import com.example.demo.service.EligibilityCheckService;
+import org.springframework.stereotype.Service;
 
+@Service   // ⭐ REQUIRED
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    public EligibilityCheckServiceImpl(
-            EmployeeProfileRepository e,
-            DeviceCatalogItemRepository d,
-            IssuedDeviceRecordRepository i,
-            PolicyRuleRepository p,
-            EligibilityCheckRecordRepository r) {
+    private final EligibilityCheckRepository repository;
+
+    public EligibilityCheckServiceImpl(EligibilityCheckRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public EligibilityCheckRecord checkEligibility(Long employeeId, Long deviceItemId) {
+
+        EligibilityCheckRecord record = new EligibilityCheckRecord();
+        record.setEmployeeId(employeeId);
+        record.setDeviceItemId(deviceItemId);
+        record.setIsEligible(true);   // basic default
+        record.setReason("Eligible");
+
+        return repository.save(record);
     }
 }

@@ -13,4 +13,4 @@ import java.util.List;
 //     List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
 
 // }
-public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {}
+// public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {}

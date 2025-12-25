@@ -1,7 +1,7 @@
 
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.EligibilityCheckRecord;
+// import com.example.demo.model.EligibilityCheckRecord;
 
 // import java.util.List;
 
@@ -17,4 +17,12 @@ import com.example.demo.model.EligibilityCheckRecord;
 
 // }
 
-public interface EligibilityCheckService {}
+// public interface EligibilityCheckService {}
+package com.example.demo.service;
+
+import com.example.demo.model.EligibilityCheckRecord;
+
+public interface EligibilityCheckService {
+
+    EligibilityCheckRecord checkEligibility(Long employeeId, Long deviceItemId);
+}
