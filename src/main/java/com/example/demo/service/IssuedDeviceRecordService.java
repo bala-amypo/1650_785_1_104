@@ -1,7 +1,7 @@
 
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.IssuedDeviceRecord;
+// import com.example.demo.model.IssuedDeviceRecord;
 
 // import java.util.List;
 
@@ -14,7 +14,22 @@ import com.example.demo.model.IssuedDeviceRecord;
 //     IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
 
 //     void deactivateDevice(Long id);
+// // }
+// public interface IssuedDeviceRecordService {
+//     IssuedDeviceRecord returnDevice(Long id);
 // }
+package com.example.demo.service;
+
+import com.example.demo.model.IssuedDeviceRecord;
+import java.util.List;
+
 public interface IssuedDeviceRecordService {
-    IssuedDeviceRecord returnDevice(Long id);
+
+    IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
+
+    IssuedDeviceRecord updateStatus(Long id, String status);
+
+    IssuedDeviceRecord getById(Long id);
+
+    List<IssuedDeviceRecord> getAllRecords();
 }
