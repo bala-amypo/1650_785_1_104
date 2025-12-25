@@ -68,7 +68,9 @@ import com.example.demo.repository.*;
 import com.example.demo.service.EligibilityCheckService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     private final EmployeeProfileRepository employeeRepo;
     private final DeviceCatalogItemRepository deviceRepo;
