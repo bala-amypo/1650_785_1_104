@@ -1,82 +1,61 @@
-// package com.example.demo.service.impl;
 
-// import java.util.List;
-// import com.example.demo.repository.EligibilityCheckRecordRepository;
+// package com.example.demo.service.Impl;
+
 // import com.example.demo.model.EligibilityCheckRecord;
+// import com.example.demo.repository.EligibilityCheckRecordRepository;
 // import com.example.demo.service.EligibilityCheckService;
 // import org.springframework.stereotype.Service;
+
+// import java.util.List;
+
 // @Service
-// public class EligibilityCheckServiceImpl
-//         implements EligibilityCheckService {
+// public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-//     private final EligibilityCheckRecordRepository repo;
+//     private final EligibilityCheckRecordRepository repository;
 
-//     public EligibilityCheckServiceImpl(
-//             EligibilityCheckRecordRepository repo) {
-//         this.repo = repo;
+//     public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
+//         this.repository = repository;
 //     }
 
-//     public EligibilityCheckRecord validate(
-//             Long employeeId, Long deviceItemId) {
+//     @Override
+//     public EligibilityCheckRecord save(EligibilityCheckRecord record) {
+//         return repository.save(record);
+//     }
 
-//         EligibilityCheckRecord record =
-//                 new EligibilityCheckRecord();
-
+//     @Override
+//     public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
+//         EligibilityCheckRecord record = new EligibilityCheckRecord();
 //         record.setEmployeeId(employeeId);
 //         record.setDeviceItemId(deviceItemId);
-//         record.setIsEligible(true);
-//         record.setReason("Allowed");
 
-//         return repo.save(record);
+//         // Simple example: mark eligible if deviceId is even, else not eligible
+//         record.setEligible(deviceItemId % 2 == 0);
+
+//         return repository.save(record);
 //     }
 
+//     @Override
+//     public List<EligibilityCheckRecord> getAll() {
+//         return repository.findAll();
+//     }
+
+//     @Override
 //     public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
-//         return repo.findByEmployeeId(employeeId);
+//         return repository.findByEmployeeId(employeeId);
 //     }
 // }
-// package com.epackage com.example.demo.service.impl;
-package com.example.demo.service.Impl;
+package com.example.demo.service.impl;
 
-import com.example.demo.model.EligibilityCheckRecord;
-import com.example.demo.repository.EligibilityCheckRecordRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.EligibilityCheckService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-@Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EligibilityCheckRecordRepository repository;
-
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
-        this.repository = repository;
-    }
-
-    @Override
-    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
-        return repository.save(record);
-    }
-
-    @Override
-    public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-        EligibilityCheckRecord record = new EligibilityCheckRecord();
-        record.setEmployeeId(employeeId);
-        record.setDeviceItemId(deviceItemId);
-
-        // Simple example: mark eligible if deviceId is even, else not eligible
-        record.setEligible(deviceItemId % 2 == 0);
-
-        return repository.save(record);
-    }
-
-    @Override
-    public List<EligibilityCheckRecord> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
-        return repository.findByEmployeeId(employeeId);
+    public EligibilityCheckServiceImpl(
+            EmployeeProfileRepository e,
+            DeviceCatalogItemRepository d,
+            IssuedDeviceRecordRepository i,
+            PolicyRuleRepository p,
+            EligibilityCheckRecordRepository r) {
     }
 }
