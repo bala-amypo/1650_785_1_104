@@ -115,7 +115,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service   // 🔥 THIS IS CRITICAL
+@Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     private final EmployeeProfileRepository repository;
@@ -125,22 +125,28 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile create(EmployeeProfile profile) {
+    public EmployeeProfile createEmployee(EmployeeProfile profile) {
         profile.setActive(true);
         return repository.save(profile);
     }
 
     @Override
-    public List<EmployeeProfile> getAll() {
-        return repository.findAll();
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile employee = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        employee.setActive(active);
+        return repository.save(employee);
     }
 
     @Override
-    public EmployeeProfile activate(Long id, boolean active) {
-        EmployeeProfile profile = repository.findById(id)
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
+    }
 
-        profile.setActive(active);
-        return repository.save(profile);
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return repository.findAll();
     }
 }
