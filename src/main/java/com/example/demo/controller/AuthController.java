@@ -1,112 +1,67 @@
+
 // package com.example.demo.controller;
 
 // import com.example.demo.model.UserAccount;
 // import com.example.demo.repository.UserAccountRepository;
 // import org.springframework.web.bind.annotation.*;
 
-// @RestController
-// @RequestMapping("/auth")
-// public class AuthController {
-
-//     private final UserAccountRepository userAccountRepository;
-
-//     public AuthController(UserAccountRepository userAccountRepository) {
-//         this.userAccountRepository = userAccountRepository;
-//     }
-
-//     @PostMapping("/register")
-//     public UserAccount register(@RequestBody UserAccount user) {
-//         user.setActive(true);  
-//         return userAccountRepository.save(user);
-//     }
-
-//     @PostMapping("/login")
-//     public UserAccount login(@RequestBody UserAccount request) {
-
-//         for (UserAccount user : userAccountRepository.findAll()) {
-
-//             if (user.getEmail().equals(request.getEmail())
-//                     && user.getPasswordHash().equals(request.getPasswordHash())
-//                     && Boolean.TRUE.equals(user.getActive())) {
-
-//                 return user;
-//             }
-//         }
-
-//         return null; 
-//     }
-// // }
-// package com.example.demo.controller;
-
-// import com.example.demo.model.UserAccount;
-// import com.example.demo.service.UserAccountService;
-// import com.example.demo.exception.BadRequestException;
-// import org.springframework.web.bind.annotation.*;
-
-// import java.util.List;
+// import java.util.Optional;
 
 // @RestController
 // @RequestMapping("/auth")
 // public class AuthController {
 
-//     private final UserAccountService service;
+//     private final UserAccountRepository repository;
 
-//     public AuthController(UserAccountService service) {
-//         this.service = service;
+//     public AuthController(UserAccountRepository repository) {
+//         this.repository = repository;
 //     }
 
 //     @PostMapping("/register")
 //     public UserAccount register(@RequestBody UserAccount user) {
-//         return service.create(user);
+//         return repository.save(user);
 //     }
 
-//     @GetMapping("/users")
-//     public List<UserAccount> getAllUsers() {
-//         return service.getAll();
-//     }
-
-//     @GetMapping("/users/{id}")
-//     public UserAccount getUser(@PathVariable Long id) {
-//         return service.getById(id);
-//     }
-
-//     @PostMapping("/login")
-//     public String login(@RequestBody UserAccount user) {
-//         UserAccount dbUser = service.getAll()
-//                 .stream()
-//                 .filter(u -> u.getEmail().equals(user.getEmail())
-//                         && u.getPasswordHash().equals(user.getPasswordHash()))
-//                 .findFirst()
-//                 .orElseThrow(() -> new BadRequestException("Invalid credentials"));
-
-//         return "Login successful for " + dbUser.getEmail();
+//     @GetMapping("/login/{username}")
+//     public Optional<UserAccount> login(@PathVariable String username) {
+//         return repository.findByUsername(username);
 //     }
 // }
 package com.example.demo.controller;
 
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterResponse;
 import com.example.demo.model.UserAccount;
-import com.example.demo.repository.UserAccountRepository;
+import com.example.demo.security.JwtTokenProvider;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserAccountRepository repository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(UserAccountRepository repository) {
-        this.repository = repository;
+    public AuthController(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@RequestBody AuthRequest request) {
+
+        UserAccount user = new UserAccount(
+                1L,
+                request.getEmail(),
+                "ADMIN",
+                request.getPassword()
+        );
+
+        String token = jwtTokenProvider.generateToken(user);
+        return new AuthResponse(token);
     }
 
     @PostMapping("/register")
-    public UserAccount register(@RequestBody UserAccount user) {
-        return repository.save(user);
-    }
-
-    @GetMapping("/login/{username}")
-    public Optional<UserAccount> login(@PathVariable String username) {
-        return repository.findByUsername(username);
+    public RegisterResponse register() {
+        return new RegisterResponse("User registered successfully");
     }
 }
