@@ -1,54 +1,11 @@
-// package com.example.demo.service.Impl;
 
-// import com.example.demo.model.DeviceCatalogItem;
-// import com.example.demo.repository.DeviceCatalogItemRepository;
-// import com.example.demo.service.DeviceCatalogService;
-// import org.springframework.stereotype.Service;
-
-// import java.util.List;
-
-// @Service
-// public class DeviceCatalogServiceImpl implements DeviceCatalogService {
-
-//     private final DeviceCatalogItemRepository repository;
-
-//     public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
-//         this.repository = repository;
-//     }
-
-//     @Override
-//     public DeviceCatalogItem createDevice(DeviceCatalogItem item) {
-//         // Optional simple check
-//         if (item.getMaxAllowedPerEmployee() < 1) {
-//             item.setMaxAllowedPerEmployee(1);
-//         }
-//         return repository.save(item);
-//     }
-
-//     @Override
-//     public List<DeviceCatalogItem> getAllDevices() {
-//         return repository.findAll();
-//     }
-
-//     @Override
-//     public DeviceCatalogItem getDeviceById(Long id) {
-//         return repository.findById(id).orElse(null);
-//     }
-
-//     @Override
-//     public void deleteDevice(Long id) {
-//         repository.deleteById(id);
-//     }
-// }
-////
 // package com.example.demo.service.impl;
 
 // import com.example.demo.model.DeviceCatalogItem;
 // import com.example.demo.repository.DeviceCatalogItemRepository;
 // import com.example.demo.service.DeviceCatalogService;
-// import com.example.demo.exception.ResourceNotFoundException;
-// import com.example.demo.exception.BadRequestException;
 // import org.springframework.stereotype.Service;
+// import com.example.demo.exception.ResourceNotFoundException;
 
 // import java.util.List;
 
@@ -63,16 +20,12 @@
 
 //     @Override
 //     public DeviceCatalogItem create(DeviceCatalogItem item) {
-//         if (repository.existsByDeviceCode(item.getDeviceCode())) {
-//             throw new BadRequestException("Device code already exists");
-//         }
 //         return repository.save(item);
 //     }
 
 //     @Override
 //     public DeviceCatalogItem getById(Long id) {
-//         return repository.findById(id)
-//                 .orElseThrow(() -> new ResourceNotFoundException("Device not found"));
+//         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found"));
 //     }
 
 //     @Override
@@ -81,52 +34,50 @@
 //     }
 
 //     @Override
+//     public DeviceCatalogItem update(Long id, DeviceCatalogItem item) {
+//         item.setId(id);
+//         return repository.save(item);
+//     }
+
+//     @Override
 //     public void delete(Long id) {
-//         repository.delete(getById(id));
+//         repository.deleteById(id);
 //     }
 // }
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
-import org.springframework.stereotype.Service;
-import com.example.demo.exception.ResourceNotFoundException;
-
 import java.util.List;
 
-@Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repository;
+    private final DeviceCatalogItemRepository repo;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
-        this.repository = repository;
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public DeviceCatalogItem create(DeviceCatalogItem item) {
-        return repository.save(item);
+    public DeviceCatalogItem createItem(DeviceCatalogItem item) {
+        if (item.getMaxAllowedPerEmployee() == null || item.getMaxAllowedPerEmployee() <= 0)
+            throw new BadRequestException("maxAllowedPerEmployee must be > 0");
+
+        repo.findByDeviceCode(item.getDeviceCode())
+                .ifPresent(i -> { throw new BadRequestException("Device code exists"); });
+
+        return repo.save(item);
     }
 
-    @Override
-    public DeviceCatalogItem getById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found"));
+    public List<DeviceCatalogItem> getAllItems() {
+        return repo.findAll();
     }
 
-    @Override
-    public List<DeviceCatalogItem> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public DeviceCatalogItem update(Long id, DeviceCatalogItem item) {
-        item.setId(id);
-        return repository.save(item);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
+        DeviceCatalogItem item = repo.findById(id)
+                .orElseThrow(() -> new BadRequestException("Device not found"));
+        item.setActive(active);
+        return repo.save(item);
     }
 }
