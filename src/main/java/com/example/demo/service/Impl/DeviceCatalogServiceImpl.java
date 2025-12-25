@@ -84,7 +84,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.repository.DeviceCatalogRepository;
+import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
 
@@ -93,9 +93,9 @@ import java.util.List;
 @Service   // ⭐ THIS IS THE KEY FIX
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogRepository repository;
+    private final DeviceCatalogItemRepository repository;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogRepository repository) {
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
         this.repository = repository;
     }
 
