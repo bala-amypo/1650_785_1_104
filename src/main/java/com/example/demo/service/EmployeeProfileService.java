@@ -25,6 +25,19 @@
 //     EmployeeProfile getEmployeeById(Long id);
 //     List<EmployeeProfile> getAllEmployees();
 // }
+// package com.example.demo.service;
+
+// import com.example.demo.model.EmployeeProfile;
+// import java.util.List;
+
+// public interface EmployeeProfileService {
+
+//     EmployeeProfile create(EmployeeProfile profile);
+
+//     List<EmployeeProfile> getAll();
+
+//     EmployeeProfile activate(Long id, boolean active);
+// }
 package com.example.demo.service;
 
 import com.example.demo.model.EmployeeProfile;
@@ -32,9 +45,11 @@ import java.util.List;
 
 public interface EmployeeProfileService {
 
-    EmployeeProfile create(EmployeeProfile profile);
+    EmployeeProfile createEmployee(EmployeeProfile profile);
 
-    List<EmployeeProfile> getAll();
+    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 
-    EmployeeProfile activate(Long id, boolean active);
+    EmployeeProfile getEmployeeById(Long id);
+
+    List<EmployeeProfile> getAllEmployees();
 }
