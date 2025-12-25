@@ -106,47 +106,49 @@
 //         return repo.findAll();
 //     }
 // }
+
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
+    private final EmployeeProfileRepository employeeRepo;
 
-    private final EmployeeProfileRepository repository;
-
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
-        this.repository = repository;
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository employeeRepo) {
+        this.employeeRepo = employeeRepo;
     }
 
     @Override
-    public EmployeeProfile createEmployee(EmployeeProfile profile) {
-        profile.setActive(true);
-        return repository.save(profile);
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        if (employeeRepo.findByEmployeeId(employee.getEmployeeId()).isPresent()) {
+            throw new BadRequestException("EmployeeId already exists");
+        }
+        if (employeeRepo.findByEmail(employee.getEmail()).isPresent()) {
+            throw new BadRequestException("Email already exists");
+        }
+        return employeeRepo.save(employee);
     }
 
     @Override
-    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile employee = repository.findById(id)
+    public EmployeeProfile updateEmployeeStatus(Long id, Boolean active) {
+        EmployeeProfile employee = employeeRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
-
         employee.setActive(active);
-        return repository.save(employee);
+        return employeeRepo.save(employee);
     }
 
     @Override
     public EmployeeProfile getEmployeeById(Long id) {
-        return repository.findById(id)
+        return employeeRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
     @Override
     public List<EmployeeProfile> getAllEmployees() {
-        return repository.findAll();
+        return employeeRepo.findAll();
     }
 }
