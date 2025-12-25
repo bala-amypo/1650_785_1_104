@@ -31,7 +31,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.UserAccount;
 import com.example.demo.security.JwtTokenProvider;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +61,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public RegisterResponse register() {
-        return new RegisterResponse("User registered successfully");
+    public RegisterRequest register() {
+        return new RegisterRequest("User registered successfully");
     }
 }

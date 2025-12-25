@@ -4,9 +4,9 @@ public class RegisterRequest {
 
     private String message;
 
-    public RegisterResponse() {}
+    public RegisterRequest() {}
 
-    public RegisterResponse(String message) {
+    public RegisterRequest(String message) {
         this.message = message;
     }
 
