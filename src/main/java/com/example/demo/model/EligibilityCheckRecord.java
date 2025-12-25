@@ -44,10 +44,11 @@
 
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "eligibility_check_record")
 public class EligibilityCheckRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
