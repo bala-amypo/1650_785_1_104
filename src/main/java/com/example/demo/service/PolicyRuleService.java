@@ -1,9 +1,9 @@
 
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.PolicyRule;
+// import com.example.demo.model.PolicyRule;
 
-import java.util.List;
+// import java.util.List;
 
 // public interface PolicyRuleService {
 //     PolicyRule create(PolicyRule rule);
@@ -15,7 +15,13 @@ import java.util.List;
 //     List<PolicyRule> getActiveRules();
 // }
 
+package com.example.demo.service;
+
+import com.example.demo.model.PolicyRule;
+import java.util.List;
+
 public interface PolicyRuleService {
     PolicyRule createRule(PolicyRule rule);
     List<PolicyRule> getAllRules();
+    List<PolicyRule> getActiveRules();
 }
