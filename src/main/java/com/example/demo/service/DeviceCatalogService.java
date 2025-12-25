@@ -20,6 +20,19 @@
 //     DeviceCatalogItem createItem(DeviceCatalogItem item);
 //     List<DeviceCatalogItem> getAllItems();
 //     DeviceCatalogItem updateActiveStatus(Long id, boolean active);
+// // }
+// package com.example.demo.service;
+
+// import com.example.demo.model.DeviceCatalogItem;
+// import java.util.List;
+
+// public interface DeviceCatalogService {
+
+//     DeviceCatalogItem create(DeviceCatalogItem item);
+
+//     List<DeviceCatalogItem> getAll();
+
+//     DeviceCatalogItem deactivate(Long id);
 // }
 package com.example.demo.service;
 
@@ -28,9 +41,9 @@ import java.util.List;
 
 public interface DeviceCatalogService {
 
-    DeviceCatalogItem create(DeviceCatalogItem item);
+    DeviceCatalogItem createItem(DeviceCatalogItem item);
 
-    List<DeviceCatalogItem> getAll();
+    List<DeviceCatalogItem> getAllItems();
 
-    DeviceCatalogItem deactivate(Long id);
+    DeviceCatalogItem updateActiveStatus(Long id, boolean active);
 }

@@ -81,39 +81,75 @@
 //         return repo.save(item);
 //     }
 // }
+// package com.example.demo.service.impl;
+
+// import com.example.demo.model.DeviceCatalogItem;
+// import com.example.demo.repository.DeviceCatalogItemRepository;
+// import com.example.demo.service.DeviceCatalogService;
+// import org.springframework.stereotype.Service;
+
+// import java.util.List;
+
+// @Service   // ⭐ THIS IS THE KEY FIX
+// public class DeviceCatalogServiceImpl implements DeviceCatalogService {
+
+//     private final DeviceCatalogItemRepository repository;
+
+//     public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
+//         this.repository = repository;
+//     }
+
+//     @Override
+//     public DeviceCatalogItem create(DeviceCatalogItem item) {
+//         return repository.save(item);
+//     }
+
+//     @Override
+//     public List<DeviceCatalogItem> getAll() {
+//         return repository.findAll();
+//     }
+
+//     @Override
+//     public DeviceCatalogItem deactivate(Long id) {
+//         DeviceCatalogItem item = repository.findById(id)
+//                 .orElseThrow(() -> new RuntimeException("Device not found"));
+//         item.setActive(false);
+//         return repository.save(item);
+//     }
+// }
 package com.example.demo.service.impl;
 
 import com.example.demo.model.DeviceCatalogItem;
-import com.example.demo.repository.DeviceCatalogItemRepository;
+import com.example.demo.repository.DeviceCatalogRepository;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service   // ⭐ THIS IS THE KEY FIX
+@Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repository;
+    private final DeviceCatalogRepository repository;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
+    public DeviceCatalogServiceImpl(DeviceCatalogRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public DeviceCatalogItem create(DeviceCatalogItem item) {
+    public DeviceCatalogItem createItem(DeviceCatalogItem item) {
         return repository.save(item);
     }
 
     @Override
-    public List<DeviceCatalogItem> getAll() {
+    public List<DeviceCatalogItem> getAllItems() {
         return repository.findAll();
     }
 
     @Override
-    public DeviceCatalogItem deactivate(Long id) {
+    public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
         DeviceCatalogItem item = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Device not found"));
-        item.setActive(false);
+        item.setActive(active);
         return repository.save(item);
     }
 }
