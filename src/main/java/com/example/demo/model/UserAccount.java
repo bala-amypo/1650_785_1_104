@@ -26,7 +26,16 @@ public class UserAccount {
         this.username = username;
         this.password = password;
         this.role = role;
+        private String email;
+
     }
+    public String getEmail() {
+    return email;
+}
+
+public void setEmail(String email) {
+    this.email = email;
+}
 
     // getters & setters (keep yours if already present)
 
