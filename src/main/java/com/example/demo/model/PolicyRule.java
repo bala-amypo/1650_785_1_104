@@ -75,12 +75,12 @@
 //         this.active = active;
 //     }
 // }
-
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "policy_rule")
 public class PolicyRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

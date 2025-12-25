@@ -28,10 +28,11 @@
 
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "issued_device_record")
 public class IssuedDeviceRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
