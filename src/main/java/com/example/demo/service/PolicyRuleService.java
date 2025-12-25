@@ -14,6 +14,7 @@ import java.util.List;
 
 //     List<PolicyRule> getActiveRules();
 // }
+
 public interface PolicyRuleService {
     PolicyRule createRule(PolicyRule rule);
     List<PolicyRule> getAllRules();
