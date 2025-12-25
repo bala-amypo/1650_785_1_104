@@ -1,10 +1,3 @@
-package com.example.demo.model;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 @Entity
 public class UserAccount {
 
@@ -15,29 +8,17 @@ public class UserAccount {
     private String username;
     private String password;
     private String role;
+    private String email;
 
-    // ✅ REQUIRED by JPA
     public UserAccount() {
     }
 
-    // ✅ REQUIRED by AuthController
     public UserAccount(Long id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-        private String email;
-
     }
-    public String getEmail() {
-    return email;
-}
-
-public void setEmail(String email) {
-    this.email = email;
-}
-
-    // getters & setters (keep yours if already present)
 
     public Long getId() {
         return id;
@@ -69,5 +50,14 @@ public void setEmail(String email) {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    // ✅ REQUIRED BY JwtTokenProvider
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
