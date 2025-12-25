@@ -1,11 +1,14 @@
+
 // package com.example.demo.controller;
-// import jakarta.validation.Valid;
+
 // import com.example.demo.model.EmployeeProfile;
 // import com.example.demo.service.EmployeeProfileService;
 // import org.springframework.web.bind.annotation.*;
 
+// import java.util.List;
+
 // @RestController
-// @RequestMapping("/api/employees")
+// @RequestMapping("/employees")
 // public class EmployeeProfileController {
 
 //     private final EmployeeProfileService service;
@@ -15,7 +18,7 @@
 //     }
 
 //     @PostMapping
-//     public EmployeeProfile create(@Valid @RequestBody EmployeeProfile employee) {
+//     public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
 //         return service.create(employee);
 //     }
 
@@ -24,11 +27,21 @@
 //         return service.getById(id);
 //     }
 
-//     @PutMapping("/{id}/status")
-//     public EmployeeProfile updateStatus(
+//     @GetMapping
+//     public List<EmployeeProfile> getAll() {
+//         return service.getAll();
+//     }
+
+//     @PutMapping("/{id}")
+//     public EmployeeProfile update(
 //             @PathVariable Long id,
-//             @RequestParam Boolean active) {
-//         return service.updateStatus(id, active);
+//             @RequestBody EmployeeProfile employee) {
+//         return service.update(id, employee);
+//     }
+
+//     @DeleteMapping("/{id}")
+//     public void delete(@PathVariable Long id) {
+//         service.delete(id);
 //     }
 // }
 package com.example.demo.controller;
@@ -50,29 +63,24 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
-        return service.create(employee);
+    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
+        return service.createEmployee(employee);
+    }
+
+    @PutMapping("/{id}/status")
+    public EmployeeProfile updateEmployeeStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+        return service.updateEmployeeStatus(id, active);
     }
 
     @GetMapping("/{id}")
-    public EmployeeProfile getById(@PathVariable Long id) {
-        return service.getById(id);
+    public EmployeeProfile getEmployeeById(@PathVariable Long id) {
+        return service.getEmployeeById(id);
     }
 
     @GetMapping
-    public List<EmployeeProfile> getAll() {
-        return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public EmployeeProfile update(
-            @PathVariable Long id,
-            @RequestBody EmployeeProfile employee) {
-        return service.update(id, employee);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public List<EmployeeProfile> getAllEmployees() {
+        return service.getAllEmployees();
     }
 }

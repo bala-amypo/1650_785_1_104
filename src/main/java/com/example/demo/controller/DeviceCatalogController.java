@@ -1,44 +1,4 @@
-// package com.example.demo.controller;
 
-// import com.example.demo.model.DeviceCatalogItem;
-// import com.example.demo.service.DeviceCatalogService;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
-
-// import java.util.List;
-
-// @RestController
-// @RequestMapping("/device-catalog")
-// public class DeviceCatalogController {
-
-//     private final DeviceCatalogService deviceCatalogService;
-
-//     public DeviceCatalogController(DeviceCatalogService deviceCatalogService) {
-//         this.deviceCatalogService = deviceCatalogService;
-//     }
-
-//     @PostMapping
-//     public ResponseEntity<DeviceCatalogItem> createDevice(@RequestBody DeviceCatalogItem item) {
-//         return ResponseEntity.ok(deviceCatalogService.createDevice(item));
-//     }
-
-//     @GetMapping
-//     public ResponseEntity<List<DeviceCatalogItem>> getAllDevices() {
-//         return ResponseEntity.ok(deviceCatalogService.getAllDevices());
-//     }
-
-//     @GetMapping("/{id}")
-//     public ResponseEntity<DeviceCatalogItem> getDeviceById(@PathVariable Long id) {
-//         return ResponseEntity.ok(deviceCatalogService.getDeviceById(id));
-//     }
-
-//     @DeleteMapping("/{id}")
-//     public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
-//         deviceCatalogService.deleteDevice(id);
-//         return ResponseEntity.noContent().build();
-//     }
-// }
-// ////
 // package com.example.demo.controller;
 
 // import com.example.demo.model.DeviceCatalogItem;
@@ -72,6 +32,12 @@
 //         return service.getAll();
 //     }
 
+//     @PutMapping("/{id}")
+//     public DeviceCatalogItem update(@PathVariable Long id,
+//                                     @RequestBody DeviceCatalogItem item) {
+//         return service.update(id, item);
+//     }
+
 //     @DeleteMapping("/{id}")
 //     public void delete(@PathVariable Long id) {
 //         service.delete(id);
@@ -96,28 +62,19 @@ public class DeviceCatalogController {
     }
 
     @PostMapping
-    public DeviceCatalogItem create(@RequestBody DeviceCatalogItem item) {
-        return service.create(item);
-    }
-
-    @GetMapping("/{id}")
-    public DeviceCatalogItem getById(@PathVariable Long id) {
-        return service.getById(id);
+    public DeviceCatalogItem createItem(@RequestBody DeviceCatalogItem item) {
+        return service.createItem(item);
     }
 
     @GetMapping
-    public List<DeviceCatalogItem> getAll() {
-        return service.getAll();
+    public List<DeviceCatalogItem> getAllItems() {
+        return service.getAllItems();
     }
 
-    @PutMapping("/{id}")
-    public DeviceCatalogItem update(@PathVariable Long id,
-                                    @RequestBody DeviceCatalogItem item) {
-        return service.update(id, item);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @PutMapping("/{id}/status")
+    public DeviceCatalogItem updateActiveStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+        return service.updateActiveStatus(id, active);
     }
 }
