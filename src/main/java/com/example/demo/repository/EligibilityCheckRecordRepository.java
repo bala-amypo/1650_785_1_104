@@ -1,17 +1,4 @@
-// package com.example.demo.repository;
 
-// import com.example.demo.model.EligibilityCheckRecord;
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import java.util.List;  // ✅ THIS IS REQUIRED
-
-// public interface EligibilityCheckRecordRepository
-//         extends JpaRepository<EligibilityCheckRecord, Long> {
-
-//     List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
-// // }
-// public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {
-//     List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
-// }
 package com.example.demo.repository;
 
 import com.example.demo.model.EligibilityCheckRecord;
@@ -20,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {
+// @Repository
+// public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {
 
-    List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
+//     List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
 
-}
+// }
+public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, Long> {}
