@@ -125,7 +125,9 @@ import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
     private final DeviceCatalogItemRepository deviceRepo;
 
