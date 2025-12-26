@@ -31,6 +31,7 @@ import com.example.demo.model.EligibilityCheckRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-public interface EligibilityCheckRecordRepository extends JpaRepository<EligibilityCheckRecord, String> {
-    List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
+public interface EligibilityCheckService {
+    EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId);
+    List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId);
 }

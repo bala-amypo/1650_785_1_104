@@ -172,7 +172,6 @@ import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     private final EmployeeProfileRepository employeeRepo;
@@ -182,10 +181,10 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     private final EligibilityCheckRecordRepository eligibilityRepo;
 
     public EligibilityCheckServiceImpl(EmployeeProfileRepository employeeRepo,
-                                     DeviceCatalogItemRepository deviceRepo,
-                                     IssuedDeviceRecordRepository issuedRepo,
-                                     PolicyRuleRepository policyRepo,
-                                     EligibilityCheckRecordRepository eligibilityRepo) {
+                                       DeviceCatalogItemRepository deviceRepo,
+                                       IssuedDeviceRecordRepository issuedRepo,
+                                       PolicyRuleRepository policyRepo,
+                                       EligibilityCheckRecordRepository eligibilityRepo) {
         this.employeeRepo = employeeRepo;
         this.deviceRepo = deviceRepo;
         this.issuedRepo = issuedRepo;
@@ -223,7 +222,8 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             return eligibilityRepo.save(record);
         }
 
-        List<IssuedDeviceRecord> activeAssignments = issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId);
+        List<IssuedDeviceRecord> activeAssignments =
+                issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId);
         if (!activeAssignments.isEmpty()) {
             record.setIsEligible(false);
             record.setReason("Active issuance already exists for this device");
@@ -240,15 +240,17 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         List<PolicyRule> activeRules = policyRepo.findByActiveTrue();
         for (PolicyRule rule : activeRules) {
             boolean applies = false;
-            
+
             if (rule.getAppliesToDepartment() == null && rule.getAppliesToRole() == null) {
                 applies = true;
-            } else if (rule.getAppliesToDepartment() != null && rule.getAppliesToDepartment().equals(employee.getDepartment())) {
+            } else if (rule.getAppliesToDepartment() != null &&
+                       rule.getAppliesToDepartment().equals(employee.getDepartment())) {
                 applies = true;
-            } else if (rule.getAppliesToRole() != null && rule.getAppliesToRole().equals(employee.getJobRole())) {
+            } else if (rule.getAppliesToRole() != null &&
+                       rule.getAppliesToRole().equals(employee.getJobRole())) {
                 applies = true;
             }
-            
+
             if (applies && currentDeviceCount >= rule.getMaxDevicesAllowed()) {
                 record.setIsEligible(false);
                 record.setReason("Policy violation: " + rule.getRuleCode());
