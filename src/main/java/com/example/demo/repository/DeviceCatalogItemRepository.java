@@ -10,4 +10,3 @@ import java.util.Optional;
 public interface DeviceCatalogItemRepository extends JpaRepository<DeviceCatalogItem, Long> {
     Optional<DeviceCatalogItem> findByDeviceCode(String deviceCode);
 }
-`
