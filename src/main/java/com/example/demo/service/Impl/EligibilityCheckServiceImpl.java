@@ -194,7 +194,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public EligibilityCheckRecord validateEligibility(String employeeId, Long deviceItemId) {
+    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
         EligibilityCheckRecord record = new EligibilityCheckRecord();
         record.setEmployeeId(employeeId);
         record.setDeviceItemId(deviceItemId);
@@ -262,7 +262,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public List<EligibilityCheckRecord> getChecksByEmployee(String employeeId) {
+    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
         return eligibilityRepo.findByEmployeeId(employeeId);
     }
 }

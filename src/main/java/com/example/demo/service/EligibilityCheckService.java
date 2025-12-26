@@ -33,6 +33,6 @@ import com.example.demo.model.EligibilityCheckRecord;
 import java.util.List;
 
 public interface EligibilityCheckService {
-    EligibilityCheckRecord validateEligibility(String employeeId, Long deviceItemId);
-    List<EligibilityCheckRecord> getChecksByEmployee(String employeeId);
+    EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId);
+    List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId);
 }
