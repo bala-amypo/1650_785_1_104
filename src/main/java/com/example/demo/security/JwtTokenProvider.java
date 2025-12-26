@@ -114,7 +114,7 @@ public class JwtTokenProvider {
     private final SecretKey secretKey;
     private final long validityInMilliseconds;
 
-    public JwtTokenProvider(@Value("${jwt.secret:mySecretKey}") String secret, 
+    public JwtTokenProvider(@Value("${jwt.secret:myVeryLongSecretKeyThatIsAtLeast256BitsLongForHMACAlgorithm}") String secret, 
                            @Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
         this.validityInMilliseconds = validityInMilliseconds;
