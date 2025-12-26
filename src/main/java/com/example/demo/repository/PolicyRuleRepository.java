@@ -1,22 +1,13 @@
-// package com.example.demo.repository;
-
-// import com.example.demo.model.PolicyRule;
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import java.util.List;
-// import java.util.Optional;
-
-// public interface PolicyRuleRepository extends JpaRepository<PolicyRule, Long> {
-//     Optional<PolicyRule> findByRuleCode(String ruleCode);
-//     List<PolicyRule> findByActiveTrue();
-// }
-
+// com/example/demo/repository/PolicyRuleRepository.java
 package com.example.demo.repository;
 
 import com.example.demo.model.PolicyRule;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface PolicyRuleRepository extends JpaRepository<PolicyRule, Long> {
     Optional<PolicyRule> findByRuleCode(String ruleCode);
     List<PolicyRule> findByActiveTrue();
