@@ -99,12 +99,12 @@
 //     }
 // }
 
-
 package com.example.demo.security;
 
 import com.example.demo.model.UserAccount;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
@@ -115,9 +115,13 @@ public class JwtTokenProvider {
     private final SecretKey secretKey;
     private final long validityInMilliseconds;
 
-    public JwtTokenProvider(@Value("${jwt.secret:myVeryLongSecretKeyThatIsAtLeast256BitsLongForHMACAlgorithm}") String secret, 
+    public JwtTokenProvider(@Value("${jwt.secret:}") String secret, 
                            @Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        if (secret == null || secret.isEmpty()) {
+            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        } else {
+            this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        }
         this.validityInMilliseconds = validityInMilliseconds;
     }
 
