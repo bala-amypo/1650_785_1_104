@@ -108,7 +108,7 @@ public class EligibilityCheckRecord {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
-    public Long getEmployeeId() { return employeeId; }
+    public String getEmployeeId() { return employeeId; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
     
     public Long getDeviceItemId() { return deviceItemId; }
