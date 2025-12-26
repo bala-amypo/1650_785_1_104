@@ -98,18 +98,25 @@
 //                 .compact();
 //     }
 // }
+
 package com.example.demo.security;
 
 import com.example.demo.model.UserAccount;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
+@Component
 public class JwtTokenProvider {
-    private String secretKey;
-    private long validityInMilliseconds;
+    private final SecretKey secretKey;
+    private final long validityInMilliseconds;
 
-    public JwtTokenProvider(String secretKey, long validityInMilliseconds) {
-        this.secretKey = secretKey;
+    public JwtTokenProvider(@Value("${jwt.secret:mySecretKey}") String secret, 
+                           @Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
         this.validityInMilliseconds = validityInMilliseconds;
     }
 
@@ -123,14 +130,14 @@ public class JwtTokenProvider {
                 .claim("role", user.getRole())
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(secretKey)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
             if (token == null || token.isEmpty()) return false;
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -138,6 +145,6 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 }
