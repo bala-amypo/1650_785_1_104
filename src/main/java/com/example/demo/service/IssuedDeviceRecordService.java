@@ -73,10 +73,16 @@
 
 //     List<IssuedDeviceRecord> getAllRecords();
 // }
+
 package com.example.demo.service;
 
 import com.example.demo.model.IssuedDeviceRecord;
+import java.util.List;
 
 public interface IssuedDeviceRecordService {
     IssuedDeviceRecord returnDevice(Long id);
+    IssuedDeviceRecord issueDevice(IssuedDeviceRecord record);
+    IssuedDeviceRecord updateStatus(Long id, String status);
+    IssuedDeviceRecord getById(Long id);
+    List<IssuedDeviceRecord> getAllRecords();
 }

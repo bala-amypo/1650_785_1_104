@@ -144,6 +144,8 @@
 //         return repository.findAll();
 //     }
 // }
+
+
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.BadRequestException;
@@ -153,6 +155,7 @@ import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.IssuedDeviceRecordService;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
@@ -179,5 +182,29 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         }
         record.setStatus("RETURNED");
         return issuedRepo.save(record);
+    }
+
+    @Override
+    public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
+        return issuedRepo.save(record);
+    }
+
+    @Override
+    public IssuedDeviceRecord updateStatus(Long id, String status) {
+        IssuedDeviceRecord record = issuedRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
+        record.setStatus(status);
+        return issuedRepo.save(record);
+    }
+
+    @Override
+    public IssuedDeviceRecord getById(Long id) {
+        return issuedRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
+    }
+
+    @Override
+    public List<IssuedDeviceRecord> getAllRecords() {
+        return issuedRepo.findAll();
     }
 }
