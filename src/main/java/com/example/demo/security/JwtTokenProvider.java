@@ -115,13 +115,8 @@ public class JwtTokenProvider {
     private final SecretKey secretKey;
     private final long validityInMilliseconds;
 
-    public JwtTokenProvider(@Value("${jwt.secret:}") String secret, 
-                           @Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
-        if (secret == null || secret.isEmpty()) {
-            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        } else {
-            this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-        }
+    public JwtTokenProvider(@Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
+        this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         this.validityInMilliseconds = validityInMilliseconds;
     }
 
