@@ -1,40 +1,35 @@
-// com/example/demo/service/impl/PolicyRuleServiceImpl.java
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.PolicyRule;
 import com.example.demo.repository.PolicyRuleRepository;
 import com.example.demo.service.PolicyRuleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class PolicyRuleServiceImpl implements PolicyRuleService {
-    
+
     private final PolicyRuleRepository policyRepo;
-    
-    @Autowired
+
     public PolicyRuleServiceImpl(PolicyRuleRepository policyRepo) {
         this.policyRepo = policyRepo;
     }
-    
+
     @Override
     public PolicyRule createRule(PolicyRule rule) {
-        if (policyRepo.findByRuleCode(rule.getRuleCode()).isPresent()) {
+        policyRepo.findByRuleCode(rule.getRuleCode()).ifPresent(r -> {
             throw new BadRequestException("Rule code already exists");
-        }
+        });
         return policyRepo.save(rule);
     }
-    
+
     @Override
     public List<PolicyRule> getAllRules() {
         return policyRepo.findAll();
     }
-    
+
     @Override
     public List<PolicyRule> getActiveRules() {
         return policyRepo.findByActiveTrue();

@@ -15,7 +15,6 @@ public class JwtTokenProvider {
     private final long validityInMs;
 
     public JwtTokenProvider(String secret, long validityInMs) {
-        // HS256 key from your secret string
         this.secretKey = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
         this.validityInMs = validityInMs;
     }
@@ -25,23 +24,23 @@ public class JwtTokenProvider {
         Date expiry = new Date(now.getTime() + validityInMs);
 
         return Jwts.builder()
-                .setSubject(user.getEmail())                  // <- setSubject for 0.11.5
+                .setSubject(user.getEmail())
                 .claim("id", user.getId())
                 .claim("role", user.getRole())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(secretKey, SignatureAlgorithm.HS256) // still valid in 0.11.5
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(secretKey)                  // <- setSigningKey for 0.11.5
+                    .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (Exception ex) {
+        } catch (Exception e) {
             return false;
         }
     }
