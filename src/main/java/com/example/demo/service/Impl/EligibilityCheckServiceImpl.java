@@ -1,268 +1,104 @@
-
-// // package com.example.demo.service.Impl;
-
-// // import com.example.demo.model.EligibilityCheckRecord;
-// // import com.example.demo.repository.EligibilityCheckRecordRepository;
-// // import com.example.demo.service.EligibilityCheckService;
-// // import org.springframework.stereotype.Service;
-
-// // import java.util.List;
-
-// // @Service
-// // public class EligibilityCheckServiceImpl implements EligibilityCheckService {
-
-// //     private final EligibilityCheckRecordRepository repository;
-
-// //     public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
-// //         this.repository = repository;
-// //     }
-
-// //     @Override
-// //     public EligibilityCheckRecord save(EligibilityCheckRecord record) {
-// //         return repository.save(record);
-// //     }
-
-// //     @Override
-// //     public EligibilityCheckRecord validate(Long employeeId, Long deviceItemId) {
-// //         EligibilityCheckRecord record = new EligibilityCheckRecord();
-// //         record.setEmployeeId(employeeId);
-// //         record.setDeviceItemId(deviceItemId);
-
-// //         // Simple example: mark eligible if deviceId is even, else not eligible
-// //         record.setEligible(deviceItemId % 2 == 0);
-
-// //         return repository.save(record);
-// //     }
-
-// //     @Override
-// //     public List<EligibilityCheckRecord> getAll() {
-// //         return repository.findAll();
-// //     }
-
-// //     @Override
-// //     public List<EligibilityCheckRecord> getByEmployee(Long employeeId) {
-// //         return repository.findByEmployeeId(employeeId);
-// //     }
-// // }
-// // package com.example.demo.service.impl;
-
-// // import com.example.demo.repository.*;
-// // import com.example.demo.service.EligibilityCheckService;
-
-// // public class EligibilityCheckServiceImpl implements EligibilityCheckService {
-
-// //     public EligibilityCheckServiceImpl(
-// //             EmployeeProfileRepository e,
-// //             DeviceCatalogItemRepository d,
-// //             IssuedDeviceRecordRepository i,
-// //             PolicyRuleRepository p,
-// //             EligibilityCheckRecordRepository r) {
-// //     }
-// // }
-
-
-// package com.example.demo.service.impl;
-
-// import com.example.demo.model.*;
-// import com.example.demo.repository.*;
-// import com.example.demo.service.EligibilityCheckService;
-// import java.util.List;
-// import java.util.Optional;
-// import org.springframework.stereotype.Service;
-
-// @Service
-// public class EligibilityCheckServiceImpl implements EligibilityCheckService {
-//     private final EmployeeProfileRepository employeeRepo;
-//     private final DeviceCatalogItemRepository deviceRepo;
-//     private final IssuedDeviceRecordRepository issuedRepo;
-//     private final PolicyRuleRepository policyRepo;
-//     private final EligibilityCheckRecordRepository eligibilityRepo;
-
-//     public EligibilityCheckServiceImpl(EmployeeProfileRepository employeeRepo,
-//                                      DeviceCatalogItemRepository deviceRepo,
-//                                      IssuedDeviceRecordRepository issuedRepo,
-//                                      PolicyRuleRepository policyRepo,
-//                                      EligibilityCheckRecordRepository eligibilityRepo) {
-//         this.employeeRepo = employeeRepo;
-//         this.deviceRepo = deviceRepo;
-//         this.issuedRepo = issuedRepo;
-//         this.policyRepo = policyRepo;
-//         this.eligibilityRepo = eligibilityRepo;
-//     }
-
-//     @Override
-//     public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
-//         EligibilityCheckRecord record = new EligibilityCheckRecord();
-//         record.setEmployeeId(employeeId);
-//         record.setDeviceItemId(deviceItemId);
-
-//         Optional<EmployeeProfile> empOpt = employeeRepo.findById(employeeId);
-//         Optional<DeviceCatalogItem> devOpt = deviceRepo.findById(deviceItemId);
-
-//         if (!empOpt.isPresent() || !devOpt.isPresent()) {
-//             record.setIsEligible(false);
-//             record.setReason("Employee or device not found");
-//             return eligibilityRepo.save(record);
-//         }
-
-//         EmployeeProfile employee = empOpt.get();
-//         DeviceCatalogItem device = devOpt.get();
-
-//         if (!employee.getActive()) {
-//             record.setIsEligible(false);
-//             record.setReason("Employee is not active");
-//             return eligibilityRepo.save(record);
-//         }
-
-//         if (!device.getActive()) {
-//             record.setIsEligible(false);
-//             record.setReason("Device is inactive");
-//             return eligibilityRepo.save(record);
-//         }
-
-//         List<IssuedDeviceRecord> activeAssignments = issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId);
-//         if (!activeAssignments.isEmpty()) {
-//             record.setIsEligible(false);
-//             record.setReason("Active issuance already exists for this device");
-//             return eligibilityRepo.save(record);
-//         }
-
-//         Long currentDeviceCount = issuedRepo.countActiveDevicesForEmployee(employeeId);
-//         if (currentDeviceCount >= device.getMaxAllowedPerEmployee()) {
-//             record.setIsEligible(false);
-//             record.setReason("Maximum allowed devices reached for this device type");
-//             return eligibilityRepo.save(record);
-//         }
-
-//         List<PolicyRule> activeRules = policyRepo.findByActiveTrue();
-//         for (PolicyRule rule : activeRules) {
-//             boolean applies = false;
-            
-//             if (rule.getAppliesToDepartment() == null && rule.getAppliesToRole() == null) {
-//                 applies = true;
-//             } else if (rule.getAppliesToDepartment() != null && rule.getAppliesToDepartment().equals(employee.getDepartment())) {
-//                 applies = true;
-//             } else if (rule.getAppliesToRole() != null && rule.getAppliesToRole().equals(employee.getJobRole())) {
-//                 applies = true;
-//             }
-            
-//             if (applies && currentDeviceCount >= rule.getMaxDevicesAllowed()) {
-//                 record.setIsEligible(false);
-//                 record.setReason("Policy violation: " + rule.getRuleCode());
-//                 return eligibilityRepo.save(record);
-//             }
-//         }
-
-//         record.setIsEligible(true);
-//         record.setReason("Eligible");
-//         return eligibilityRepo.save(record);
-//     }
-
-//     @Override
-//     public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
-//         return eligibilityRepo.findByEmployeeId(employeeId);
-//     }
-// }
-
+// com/example/demo/service/impl/EligibilityCheckServiceImpl.java
 package com.example.demo.service.impl;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.EligibilityCheckService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.Optional;
+
 @Service
+@Transactional
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
+    
     private final EmployeeProfileRepository employeeRepo;
     private final DeviceCatalogItemRepository deviceRepo;
     private final IssuedDeviceRecordRepository issuedRepo;
     private final PolicyRuleRepository policyRepo;
     private final EligibilityCheckRecordRepository eligibilityRepo;
-
+    
+    @Autowired
     public EligibilityCheckServiceImpl(EmployeeProfileRepository employeeRepo,
-                                       DeviceCatalogItemRepository deviceRepo,
-                                       IssuedDeviceRecordRepository issuedRepo,
-                                       PolicyRuleRepository policyRepo,
-                                       EligibilityCheckRecordRepository eligibilityRepo) {
+                                     DeviceCatalogItemRepository deviceRepo,
+                                     IssuedDeviceRecordRepository issuedRepo,
+                                     PolicyRuleRepository policyRepo,
+                                     EligibilityCheckRecordRepository eligibilityRepo) {
         this.employeeRepo = employeeRepo;
         this.deviceRepo = deviceRepo;
         this.issuedRepo = issuedRepo;
         this.policyRepo = policyRepo;
         this.eligibilityRepo = eligibilityRepo;
     }
-
+    
     @Override
     public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
         EligibilityCheckRecord record = new EligibilityCheckRecord();
         record.setEmployeeId(employeeId);
         record.setDeviceItemId(deviceItemId);
-
-        Optional<EmployeeProfile> empOpt = employeeRepo.findById(employeeId);
-        Optional<DeviceCatalogItem> devOpt = deviceRepo.findById(deviceItemId);
-
-        if (!empOpt.isPresent() || !devOpt.isPresent()) {
+        
+        // Check employee exists and active
+        EmployeeProfile emp = employeeRepo.findById(employeeId).orElse(null);
+        if (emp == null || !emp.getActive()) {
             record.setIsEligible(false);
-            record.setReason("Employee or device not found");
+            record.setReason("Employee not found or not active");
             return eligibilityRepo.save(record);
         }
-
-        EmployeeProfile employee = empOpt.get();
-        DeviceCatalogItem device = devOpt.get();
-
-        if (!employee.getActive()) {
+        
+        // Check device exists and active
+        DeviceCatalogItem device = deviceRepo.findById(deviceItemId).orElse(null);
+        if (device == null || !device.getActive()) {
             record.setIsEligible(false);
-            record.setReason("Employee is not active");
+            record.setReason("Device not found or inactive");
             return eligibilityRepo.save(record);
         }
-
-        if (!device.getActive()) {
+        
+        // Check active issuance exists
+        List<IssuedDeviceRecord> activeRecords = issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId);
+        if (!activeRecords.isEmpty()) {
             record.setIsEligible(false);
-            record.setReason("Device is inactive");
+            record.setReason("Active issuance already exists for this employee and device");
             return eligibilityRepo.save(record);
         }
-
-        List<IssuedDeviceRecord> activeAssignments =
-                issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId);
-        if (!activeAssignments.isEmpty()) {
+        
+        // Check total device limit per device type
+        long totalActiveDevices = issuedRepo.countActiveDevicesForEmployee(employeeId);
+        if (totalActiveDevices >= device.getMaxAllowedPerEmployee()) {
             record.setIsEligible(false);
-            record.setReason("Active issuance already exists for this device");
+            record.setReason("Maximum allowed devices reached");
             return eligibilityRepo.save(record);
         }
-
-        Long currentDeviceCount = issuedRepo.countActiveDevicesForEmployee(employeeId);
-        if (currentDeviceCount >= device.getMaxAllowedPerEmployee()) {
-            record.setIsEligible(false);
-            record.setReason("Maximum allowed devices reached for this device type");
-            return eligibilityRepo.save(record);
-        }
-
+        
+        // Check policy rules
         List<PolicyRule> activeRules = policyRepo.findByActiveTrue();
         for (PolicyRule rule : activeRules) {
-            boolean applies = false;
-
-            if (rule.getAppliesToDepartment() == null && rule.getAppliesToRole() == null) {
-                applies = true;
-            } else if (rule.getAppliesToDepartment() != null &&
-                       rule.getAppliesToDepartment().equals(employee.getDepartment())) {
-                applies = true;
-            } else if (rule.getAppliesToRole() != null &&
-                       rule.getAppliesToRole().equals(employee.getJobRole())) {
-                applies = true;
+            boolean ruleApplies = true;
+            
+            if (rule.getAppliesToDepartment() != null && 
+                !rule.getAppliesToDepartment().equals(emp.getDepartment())) {
+                ruleApplies = false;
             }
-
-            if (applies && currentDeviceCount >= rule.getMaxDevicesAllowed()) {
+            
+            if (rule.getAppliesToRole() != null && 
+                !rule.getAppliesToRole().equals(emp.getJobRole())) {
+                ruleApplies = false;
+            }
+            
+            if (ruleApplies && totalActiveDevices >= rule.getMaxDevicesAllowed()) {
                 record.setIsEligible(false);
                 record.setReason("Policy violation: " + rule.getRuleCode());
                 return eligibilityRepo.save(record);
             }
         }
-
+        
+        // All checks passed
         record.setIsEligible(true);
         record.setReason("Eligible");
         return eligibilityRepo.save(record);
     }
-
+    
     @Override
     public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
         return eligibilityRepo.findByEmployeeId(employeeId);
