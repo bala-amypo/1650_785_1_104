@@ -1,3 +1,4 @@
+// com.example.demo.service.impl.IssuedDeviceRecordServiceImpl
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.BadRequestException;
@@ -28,7 +29,6 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         IssuedDeviceRecord rec = issuedRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Issued record not found"));
 
-        // Status is a String in tests
         if ("RETURNED".equalsIgnoreCase(rec.getStatus())) {
             throw new BadRequestException("Device already returned");
         }
