@@ -35,11 +35,13 @@
 //     public Boolean getActive() { return active; }
 //     public void setActive(Boolean active) { this.active = active; }
 // }
+
 package com.example.demo.model;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "device_catalog_item")
 public class DeviceCatalogItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +54,8 @@ public class DeviceCatalogItem {
     private String model;
     private Integer maxAllowedPerEmployee;
     private Boolean active;
+
+    public DeviceCatalogItem() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
