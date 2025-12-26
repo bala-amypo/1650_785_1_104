@@ -99,19 +99,30 @@
 //     }
 // }
 
+// remain exactly the same...
 package com.example.demo.security;
 
 import com.example.demo.model.UserAccount;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
 import java.util.Date;
-//est of your methods remain exactly the same...
-    private final SecretKey secretKey;
 
+@Component
+public class JwtTokenProvider {
+    private final SecretKey secretKey;
+    private final long validityInMilliseconds;
+
+    public JwtTokenProvider(
+        @Value("${jwt.expiration:86400000}") long validityInMilliseconds,
+        @Value("${jwt.secret:your-super-secret-key-that-is-at-least-32-chars-long!!!}") String jwtSecret
+    ) {
+        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        this.validityInMilliseconds = validityInMilliseconds;
+    }
 
     public String generateToken(UserAccount user) {
         Date now = new Date();
