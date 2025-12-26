@@ -27,9 +27,12 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     public IssuedDeviceRecord returnDevice(Long id) {
         IssuedDeviceRecord rec = issuedRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Issued record not found"));
+
+        // Status is a String in tests
         if ("RETURNED".equalsIgnoreCase(rec.getStatus())) {
             throw new BadRequestException("Device already returned");
         }
+
         rec.setStatus("RETURNED");
         return issuedRepo.save(rec);
     }

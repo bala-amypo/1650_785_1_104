@@ -19,7 +19,8 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
     @Override
     public DeviceCatalogItem createItem(DeviceCatalogItem item) {
-        if (item.getMaxAllowedPerEmployee() == null || item.getMaxAllowedPerEmployee() <= 0) {
+        Integer max = item.getMaxAllowedPerEmployee();
+        if (max == null || max <= 0) {
             throw new BadRequestException("maxAllowedPerEmployee must be > 0");
         }
         deviceRepo.findByDeviceCode(item.getDeviceCode()).ifPresent(d -> {

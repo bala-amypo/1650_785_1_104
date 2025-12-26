@@ -1,6 +1,8 @@
-// com/example/demo/service/IssuedDeviceRecordService.java
 package com.example.demo.service;
 
+import com.example.demo.model.IssuedDeviceRecord;
+
 public interface IssuedDeviceRecordService {
-    void returnDevice(Long recordId);
+
+    IssuedDeviceRecord returnDevice(Long id);
 }
