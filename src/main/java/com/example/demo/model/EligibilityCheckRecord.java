@@ -1,54 +1,94 @@
-// package com.example.demo.model;
+// // package com.example.demo.model;
 
-// import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
-// import lombok.NoArgsConstructor;
-// import lombok.AllArgsConstructor;
 // // import jakarta.persistence.*;
-// // import java.time.LocalDateTime;
+// // import lombok.Getter;
+// // import lombok.Setter;
+// // import lombok.NoArgsConstructor;
+// // import lombok.AllArgsConstructor;
+// // // import jakarta.persistence.*;
+// // // import java.time.LocalDateTime;
+// // // @Getter
+// // // @Setter
+// // @NoArgsConstructor
+// // @AllArgsConstructor
+// // // @Entity
+// // @Entity
+// // @Table(name = "eligibility_check_records")
 // // @Getter
 // // @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
+// // public class EligibilityCheckRecord {
+
+// //     @Id
+// //     @GeneratedValue(strategy = GenerationType.IDENTITY)
+// //     private Long id;
+
+// //     private Long employeeId;
+// //     private Long deviceItemId;
+// //     private boolean eligible;
+
+// // // }
+// // package com.example.demo.model;
+
+// // import jakarta.persistence.*;
+// // import lombok.*;
+
 // // @Entity
-// @Entity
-// @Table(name = "eligibility_check_records")
-// @Getter
-// @Setter
-// public class EligibilityCheckRecord {
+// // @Getter @Setter
+// // @NoArgsConstructor @AllArgsConstructor
+// // public class EligibilityCheckRecord {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-
-//     private Long employeeId;
-//     private Long deviceItemId;
-//     private boolean eligible;
-
+// //     @Id
+// //     @GeneratedValue(strategy = GenerationType.IDENTITY)
+// //     private Long id;
 // // }
+
 // package com.example.demo.model;
 
 // import jakarta.persistence.*;
-// import lombok.*;
+// import java.time.LocalDateTime;
 
 // @Entity
-// @Getter @Setter
-// @NoArgsConstructor @AllArgsConstructor
+// @Table(name = "eligibility_check_record")
 // public class EligibilityCheckRecord {
-
 //     @Id
 //     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //     private Long id;
-// }
+    
+//     private Long employeeId;
+//     private Long deviceItemId;
+//     private Boolean isEligible;
+//     private String reason;
+//     private LocalDateTime checkedAt;
 
+//     @PrePersist
+//     public void prePersist() {
+//         this.checkedAt = LocalDateTime.now();
+//     }
+
+//     public Long getId() { return id; }
+//     public void setId(Long id) { this.id = id; }
+    
+//     public Long getEmployeeId() { return employeeId; }
+//     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+    
+//     public Long getDeviceItemId() { return deviceItemId; }
+//     public void setDeviceItemId(Long deviceItemId) { this.deviceItemId = deviceItemId; }
+    
+//     public Boolean getIsEligible() { return isEligible; }
+//     public void setIsEligible(Boolean isEligible) { this.isEligible = isEligible; }
+    
+//     public String getReason() { return reason; }
+//     public void setReason(String reason) { this.reason = reason; }
+    
+//     public LocalDateTime getCheckedAt() { return checkedAt; }
+//     public void setCheckedAt(LocalDateTime checkedAt) { this.checkedAt = checkedAt; }
+// }
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "eligibility_check_record")
 public class EligibilityCheckRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
