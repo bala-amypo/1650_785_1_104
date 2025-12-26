@@ -262,7 +262,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
+    public List<EligibilityCheckRecord> getChecksByEmployee(String employeeId) {
         return eligibilityRepo.findByEmployeeId(employeeId);
     }
 }
