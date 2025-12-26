@@ -87,3 +87,30 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         // Check device-level max (primitive int, no null comparison)
         int devMax = dev.getMaxAllowedPerEmployee();
         if (totalActive >= devMax) {
+            rec.setIsEligible(false);
+            rec.setReason("Maximum allowed devices reached");
+            return eligibilityRepo.save(rec);
+        }
+
+        // Check policy rules
+        List<PolicyRule> rules = policyRepo.findByActiveTrue();
+        for (PolicyRule rule : rules) {
+            boolean deptMatch = rule.getAppliesToDepartment() == null
+                    || rule.getAppliesToDepartment().equals(emp.getDepartment());
+            boolean roleMatch = rule.getAppliesToRole() == null
+                    || rule.getAppliesToRole().equals(emp.getJobRole());
+
+            int ruleMax = rule.getMaxDevicesAllowed(); // primitive int
+            if (deptMatch && roleMatch && totalActive >= ruleMax) {
+                rec.setIsEligible(false);
+                rec.setReason("Policy violation");
+                return eligibilityRepo.save(rec);
+            }
+        }
+
+        // Eligible
+        rec.setIsEligible(true);
+        rec.setReason("Eligible");
+        return eligibilityRepo.save(rec);
+    }
+}
