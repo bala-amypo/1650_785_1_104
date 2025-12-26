@@ -93,9 +93,8 @@ public class EligibilityCheckRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private String employeeId;
     private Long deviceItemId;
+    private String employeeId;
     private Boolean isEligible;
     private String reason;
     private LocalDateTime checkedAt;
