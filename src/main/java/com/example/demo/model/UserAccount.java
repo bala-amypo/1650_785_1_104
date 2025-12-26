@@ -1,6 +1,6 @@
 // com/example/demo/model/UserAccount.java
 package com.example.demo.model;
-
+@Entity
 public class UserAccount {
     private Long id;
     private String email;
