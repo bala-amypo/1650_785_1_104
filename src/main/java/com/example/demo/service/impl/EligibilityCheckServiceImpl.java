@@ -1,7 +1,14 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.model.EligibilityCheckRecord;
+import com.example.demo.model.EmployeeProfile;
+import com.example.demo.model.PolicyRule;
+import com.example.demo.repository.DeviceCatalogItemRepository;
+import com.example.demo.repository.EligibilityCheckRecordRepository;
+import com.example.demo.repository.EmployeeProfileRepository;
+import com.example.demo.repository.IssuedDeviceRecordRepository;
+import com.example.demo.repository.PolicyRuleRepository;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +51,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         var empOpt = employeeRepo.findById(employeeId);
         var devOpt = deviceRepo.findById(deviceItemId);
 
+        // Employee or device not found
         if (empOpt.isEmpty() || devOpt.isEmpty()) {
             rec.setIsEligible(false);
             rec.setReason("Employee or device not found");
@@ -53,18 +61,21 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         EmployeeProfile emp = empOpt.get();
         DeviceCatalogItem dev = devOpt.get();
 
+        // Inactive employee
         if (!Boolean.TRUE.equals(emp.getActive())) {
             rec.setIsEligible(false);
             rec.setReason("Employee not active");
             return eligibilityRepo.save(rec);
         }
 
+        // Inactive device
         if (!Boolean.TRUE.equals(dev.getActive())) {
             rec.setIsEligible(false);
             rec.setReason("Device inactive");
             return eligibilityRepo.save(rec);
         }
 
+        // Already has active issuance for this device
         if (!issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId).isEmpty()) {
             rec.setIsEligible(false);
             rec.setReason("Active issuance already exists");
@@ -72,29 +83,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         }
 
         long totalActive = issuedRepo.countActiveDevicesForEmployee(employeeId);
-        if (dev.getMaxAllowedPerEmployee() != null &&
-            totalActive >= dev.getMaxAllowedPerEmployee()) {
-            rec.setIsEligible(false);
-            rec.setReason("Maximum allowed devices reached");
-            return eligibilityRepo.save(rec);
-        }
 
-        List<PolicyRule> rules = policyRepo.findByActiveTrue();
-        for (PolicyRule rule : rules) {
-            boolean deptMatch = rule.getAppliesToDepartment() == null ||
-                                rule.getAppliesToDepartment().equals(emp.getDepartment());
-            boolean roleMatch = rule.getAppliesToRole() == null ||
-                                rule.getAppliesToRole().equals(emp.getJobRole());
-            if (deptMatch && roleMatch && rule.getMaxDevicesAllowed() != null &&
-                totalActive >= rule.getMaxDevicesAllowed()) {
-                rec.setIsEligible(false);
-                rec.setReason("Policy violation");
-                return eligibilityRepo.save(rec);
-            }
-        }
-
-        rec.setIsEligible(true);
-        rec.setReason("Eligible");
-        return eligibilityRepo.save(rec);
-    }
-}
+        // Check device-level max (primitive int, no null comparison)
+        int devMax = dev.getMaxAllowedPerEmployee();
+        if (totalActive >= devMax) {
