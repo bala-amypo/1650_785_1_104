@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/devices")
+@RequestMapping("/api/devices")
 public class DeviceCatalogController {
 
     private final DeviceCatalogService service;

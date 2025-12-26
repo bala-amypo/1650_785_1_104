@@ -45,7 +45,7 @@ import com.example.demo.service.EligibilityCheckService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/eligibility")
+@RequestMapping("/api/eligibility")
 public class EligibilityCheckController {
 
     private final EligibilityCheckService service;
