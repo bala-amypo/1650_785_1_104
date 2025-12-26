@@ -109,16 +109,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
-
 @Component
 public class JwtTokenProvider {
     private final SecretKey secretKey;
     private final long validityInMilliseconds;
 
-    public JwtTokenProvider(@Value("${jwt.expiration:86400000}") long validityInMilliseconds) {
-        this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    public JwtTokenProvider(
+        @Value("${jwt.expiration:86400000}") long validityInMilliseconds,
+        @Value("${jwt.secret:your-super-secret-key-that-is-at-least-32-chars-long!!!}") String jwtSecret
+    ) {
+        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
         this.validityInMilliseconds = validityInMilliseconds;
     }
+
+    // rest of your methods remain exactly the same...
+
 
     public String generateToken(UserAccount user) {
         Date now = new Date();
