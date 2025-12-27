@@ -24,7 +24,7 @@ public class DemoApplication {
 		
 		System.out.println(new BCryptPasswordEncoder().encode("nethra"));
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-		if(encoder.matches("mahita", "$2a$10$g2vtDwCi1RQ7.4EjUifYIOppaErvlCApt05MH4rvo/PhDQLgMPc7C")){
+		if(encoder.matches("nethra", " $2a$10$j6NmSIQhSr4o66GCtQKxduXtk80FxPFrBEGLqgTNwumFLSyvIK2Wq")){
 			System.out.println("password matched");
 		}else{
 			System.out.println("no match");
