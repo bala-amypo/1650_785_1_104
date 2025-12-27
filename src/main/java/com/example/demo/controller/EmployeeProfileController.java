@@ -45,7 +45,6 @@
 // //     }
 // // }
 
-
 package com.example.demo.controller;
 
 import com.example.demo.model.EmployeeProfile;
@@ -87,12 +86,11 @@ public class EmployeeProfileController {
     @GetMapping
     public ResponseEntity<List<EmployeeProfile>> getAllEmployees() {
 
-        List<EmployeeProfile> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+        return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
-    // UPDATE employee active status
-    @PatchMapping("/{id}/status")
+    // UPDATE employee active status (PUT)
+    @PutMapping("/{id}/status")
     public ResponseEntity<EmployeeProfile> updateEmployeeStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
