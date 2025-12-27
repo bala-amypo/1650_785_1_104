@@ -78,7 +78,6 @@
 //         return service.updateActiveStatus(id, active);
 //     }
 // }
-
 package com.example.demo.controller;
 
 import java.util.List;
