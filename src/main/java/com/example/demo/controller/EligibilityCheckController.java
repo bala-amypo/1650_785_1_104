@@ -59,3 +59,44 @@
 //         return "Eligibility check executed";
 //     }
 // }
+package com.example.demo.controller;
+
+import com.example.demo.model.EligibilityCheckRecord;
+import com.example.demo.service.EligibilityCheckService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/eligibility-checks")
+public class EligibilityCheckController {
+
+    private final EligibilityCheckService eligibilityCheckService;
+
+    public EligibilityCheckController(EligibilityCheckService eligibilityCheckService) {
+        this.eligibilityCheckService = eligibilityCheckService;
+    }
+
+    // VALIDATE eligibility (CREATE record)
+    @PostMapping("/validate")
+    public ResponseEntity<EligibilityCheckRecord> validateEligibility(
+            @RequestParam Long employeeId,
+            @RequestParam Long deviceItemId) {
+
+        EligibilityCheckRecord record =
+                eligibilityCheckService.validateEligibility(employeeId, deviceItemId);
+
+        return new ResponseEntity<>(record, HttpStatus.CREATED);
+    }
+
+    // GET all checks by employee
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<List<EligibilityCheckRecord>> getChecksByEmployee(
+            @PathVariable Long employeeId) {
+
+        return ResponseEntity.ok(
+                eligibilityCheckService.getChecksByEmployee(employeeId));
+    }
+}
