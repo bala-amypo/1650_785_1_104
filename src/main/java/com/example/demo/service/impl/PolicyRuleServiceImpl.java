@@ -34,4 +34,8 @@ public class PolicyRuleServiceImpl implements PolicyRuleService {
     public List<PolicyRule> getActiveRules() {
         return policyRepo.findByActiveTrue();
     }
+     @Override
+    public void deleteRule(Long id) {
+        // delete logic here
+    }
 }
