@@ -78,3 +78,53 @@
 //         return service.updateActiveStatus(id, active);
 //     }
 // }
+package com.example.demo.controller;
+
+import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.service.DeviceCatalogService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/device-catalog")
+public class DeviceCatalogController {
+
+    private final DeviceCatalogService deviceCatalogService;
+
+    public DeviceCatalogController(DeviceCatalogService deviceCatalogService) {
+        this.deviceCatalogService = deviceCatalogService;
+    }
+
+    // CREATE device catalog item
+    @PostMapping
+    public ResponseEntity<DeviceCatalogItem> createItem(
+            @RequestBody DeviceCatalogItem item) {
+
+        DeviceCatalogItem createdItem =
+                deviceCatalogService.createItem(item);
+
+        return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
+    }
+
+    // GET all items
+    @GetMapping
+    public ResponseEntity<List<DeviceCatalogItem>> getAllItems() {
+
+        return ResponseEntity.ok(deviceCatalogService.getAllItems());
+    }
+
+    // UPDATE active status (PUT)
+    @PutMapping("/{id}/status")
+    public ResponseEntity<DeviceCatalogItem> updateActiveStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+
+        DeviceCatalogItem updatedItem =
+                deviceCatalogService.updateActiveStatus(id, active);
+
+        return ResponseEntity.ok(updatedItem);
+    }
+}
