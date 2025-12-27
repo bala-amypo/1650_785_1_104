@@ -44,44 +44,62 @@
 // //         service.delete(id);
 // //     }
 // // }
-// package com.example.demo.controller;
 
-// import com.example.demo.model.EmployeeProfile;
-// import com.example.demo.service.EmployeeProfileService;
-// import org.springframework.web.bind.annotation.*;
 
-// import java.util.List;
+package com.example.demo.controller;
 
-// @RestController
-// @RequestMapping("/api/employees")
-// public class EmployeeProfileController {
+import com.example.demo.model.EmployeeProfile;
+import com.example.demo.service.EmployeeProfileService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-//     private final EmployeeProfileService service;
+import java.util.List;
 
-//     public EmployeeProfileController(EmployeeProfileService service) {
-//         this.service = service;
-//     }
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeProfileController {
 
-//     @PostMapping
-//     public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
-//         return service.createEmployee(employee);
-//     }
+    private final EmployeeProfileService employeeService;
 
-//     @PutMapping("/{id}/status")
-//     public EmployeeProfile updateEmployeeStatus(
-//             @PathVariable Long id,
-//             @RequestParam boolean active) {
-//         return service.updateEmployeeStatus(id, active);
-//     }
+    public EmployeeProfileController(EmployeeProfileService employeeService) {
+        this.employeeService = employeeService;
+    }
 
-//     @GetMapping("/{id}")
-//     public EmployeeProfile getEmployeeById(@PathVariable Long id) {
-//         return service.getEmployeeById(id);
-//     }
+    // CREATE employee
+    @PostMapping
+    public ResponseEntity<EmployeeProfile> createEmployee(
+            @RequestBody EmployeeProfile employee) {
 
-//     @GetMapping
-//     public List<EmployeeProfile> getAllEmployees() {
-//         return service.getAllEmployees();
-//     }
-// }
+        EmployeeProfile savedEmployee = employeeService.createEmployee(employee);
+        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+    }
 
+    // GET employee by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeProfile> getEmployeeById(@PathVariable Long id) {
+
+        EmployeeProfile employee = employeeService.getEmployeeById(id);
+        return ResponseEntity.ok(employee);
+    }
+
+    // GET all employees
+    @GetMapping
+    public ResponseEntity<List<EmployeeProfile>> getAllEmployees() {
+
+        List<EmployeeProfile> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
+    }
+
+    // UPDATE employee active status
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<EmployeeProfile> updateEmployeeStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+
+        EmployeeProfile updatedEmployee =
+                employeeService.updateEmployeeStatus(id, active);
+
+        return ResponseEntity.ok(updatedEmployee);
+    }
+}
