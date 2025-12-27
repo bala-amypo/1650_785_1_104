@@ -85,7 +85,7 @@ public class PolicyRuleServiceImpl implements PolicyRuleService {
         repo.deleteById(id);
     }
 }
-deviceservice
+// deviceservice
 package com.example.demo.service;
 
 import java.util.List;

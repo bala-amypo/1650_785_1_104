@@ -19,7 +19,7 @@
 //     List<IssuedDeviceRecord> findActiveByEmployeeAndDevice(@Param("employeeId") Long employeeId,
 //                                                            @Param("deviceItemId") Long deviceItemId);
 // }
-ackage com.example.demo.repository;
+package com.example.demo.repository;
 
 import java.util.List;
 import java.util.Optional;
