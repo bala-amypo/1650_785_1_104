@@ -100,40 +100,39 @@
 //                 eligibilityCheckService.getChecksByEmployee(employeeId));
 //     }
 // }
+
 package com.example.demo.controller;
-
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.service.EligibilityCheckService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/eligibility")
 public class EligibilityCheckController {
 
-    private final EligibilityCheckService service;
+    private final EligibilityCheckService eligibilityCheckService;
 
-    public EligibilityCheckController(EligibilityCheckService service) {
-        this.service = service;
+    public EligibilityCheckController(EligibilityCheckService eligibilityCheckService) {
+        this.eligibilityCheckService = eligibilityCheckService;
     }
 
-    @PostMapping("/validate/{employeeId}/{deviceItemId}")
-    public EligibilityCheckRecord validate(
-            @PathVariable Long employeeId,
-            @PathVariable Long deviceItemId) {
+    // VALIDATE ELIGIBILITY → 200 OK
+    @PostMapping("/check")
+    public EligibilityCheckRecord validateEligibility(
+            @RequestParam Long employeeId,
+            @RequestParam Long deviceItemId) {
 
-        return service.validateEligibility(employeeId, deviceItemId);
+        return eligibilityCheckService.validateEligibility(employeeId, deviceItemId);
     }
 
+    // GET CHECKS BY EMPLOYEE → 200 OK
     @GetMapping("/employee/{employeeId}")
-    public List<EligibilityCheckRecord> byEmployee(@PathVariable Long employeeId) {
-        return service.getChecksByEmployee(employeeId);
-    }
+    public List<EligibilityCheckRecord> getChecksByEmployee(
+            @PathVariable Long employeeId) {
 
-    @GetMapping("/{id}")
-    public EligibilityCheckRecord getById(@PathVariable Long id) {
-        return service.getById(id);
+        return eligibilityCheckService.getChecksByEmployee(employeeId);
     }
 }

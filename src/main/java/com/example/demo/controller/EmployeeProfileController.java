@@ -45,56 +45,47 @@
 // //     }
 // // }
 
-
 package com.example.demo.controller;
-
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeProfileController {
 
-    private final EmployeeProfileService service;
+    private final EmployeeProfileService employeeProfileService;
 
-    public EmployeeProfileController(EmployeeProfileService service) {
-        this.service = service;
+    public EmployeeProfileController(EmployeeProfileService employeeProfileService) {
+        this.employeeProfileService = employeeProfileService;
     }
 
-    // POST /api/employees
+    // CREATE → 200 OK
     @PostMapping
-    public EmployeeProfile createEmployee(
-            @RequestBody EmployeeProfile employee) {
-        return service.createEmployee(employee);
+    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
+        return employeeProfileService.createEmployee(employee);
     }
 
-    // GET /api/employees
-    @GetMapping
-    public List<EmployeeProfile> getAllEmployees() {
-        return service.getAllEmployees();
-    }
-
-    // GET /api/employees/{id}
+    // GET BY ID → 200 OK
     @GetMapping("/{id}")
     public EmployeeProfile getEmployeeById(@PathVariable Long id) {
-        return service.getEmployeeById(id);
+        return employeeProfileService.getEmployeeById(id);
     }
 
-    // PUT /api/employees/{id}/status?active=true
-    @PutMapping("/{id}/status")
-    public EmployeeProfile updateStatus(
+    // GET ALL → 200 OK
+    @GetMapping
+    public List<EmployeeProfile> getAllEmployees() {
+        return employeeProfileService.getAllEmployees();
+    }
+
+    // UPDATE ACTIVE STATUS → 200 OK
+    @PutMapping("/{id}/active")
+    public EmployeeProfile updateEmployeeStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
-        return service.updateEmployeeStatus(id, active);
-    }
-
-    // DELETE /api/employees/{id}
-    @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
-        service.deleteEmployee(id);
+        return employeeProfileService.updateEmployeeStatus(id, active);
     }
 }
