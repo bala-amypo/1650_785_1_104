@@ -80,53 +80,39 @@
 // }
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/devices")
+@RequestMapping("/api/device-catalog")
 public class DeviceCatalogController {
 
-    private final DeviceCatalogService service;
+    private final DeviceCatalogService deviceCatalogService;
 
-    public DeviceCatalogController(DeviceCatalogService service) {
-        this.service = service;
+    public DeviceCatalogController(DeviceCatalogService deviceCatalogService) {
+        this.deviceCatalogService = deviceCatalogService;
     }
 
-    // POST /api/devices
+    // CREATE → 200 OK
     @PostMapping
-    public DeviceCatalogItem createDevice(
-            @RequestBody DeviceCatalogItem item) {
-        return service.createItem(item);
+    public DeviceCatalogItem createItem(@RequestBody DeviceCatalogItem item) {
+        return deviceCatalogService.createItem(item);
     }
 
-    // GET /api/devices
+    // GET ALL → 200 OK
     @GetMapping
-    public List<DeviceCatalogItem> getAllDevices() {
-        return service.getAllItems();
+    public List<DeviceCatalogItem> getAllItems() {
+        return deviceCatalogService.getAllItems();
     }
 
-    // GET /api/devices/{id}
-    @GetMapping("/{id}")
-    public DeviceCatalogItem getDeviceById(@PathVariable Long id) {
-        return service.getItemById(id);
-    }
-
-    // PUT /api/devices/{id}/active?active=true
+    // UPDATE ACTIVE STATUS → 200 OK
     @PutMapping("/{id}/active")
     public DeviceCatalogItem updateActiveStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
-        return service.updateActiveStatus(id, active);
-    }
-
-    // DELETE /api/devices/{id}
-    @DeleteMapping("/{id}")
-    public void deleteDevice(@PathVariable Long id) {
-        service.deleteItem(id);
+        return deviceCatalogService.updateActiveStatus(id, active);
     }
 }
