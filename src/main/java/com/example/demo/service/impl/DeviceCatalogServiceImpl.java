@@ -42,6 +42,8 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
         return deviceRepo.save(item);
     }
 }
+
+
 // package com.example.demo.service.impl;
 
 // import java.util.List;
