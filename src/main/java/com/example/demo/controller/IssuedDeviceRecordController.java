@@ -148,3 +148,4 @@ public class IssuedDeviceRecordController {
         return ResponseEntity.ok(service.getById(id));
     }
 }
+

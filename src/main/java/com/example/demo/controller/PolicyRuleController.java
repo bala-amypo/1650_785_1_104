@@ -65,50 +65,46 @@
 //         return service.getAllRules();
 //     }
 // }
-
 package com.example.demo.controller;
-
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.PolicyRule;
 import com.example.demo.service.PolicyRuleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/policy-rules")
 public class PolicyRuleController {
 
-    private final PolicyRuleService service;
+    private final PolicyRuleService policyRuleService;
 
-    public PolicyRuleController(PolicyRuleService service) {
-        this.service = service;
+    public PolicyRuleController(PolicyRuleService policyRuleService) {
+        this.policyRuleService = policyRuleService;
     }
 
+    // CREATE policy rule
     @PostMapping
-    public PolicyRule createRule(@RequestBody PolicyRule rule) {
-        return service.createRule(rule);
+    public ResponseEntity<PolicyRule> createRule(
+            @RequestBody PolicyRule rule) {
+
+        PolicyRule createdRule = policyRuleService.createRule(rule);
+        return new ResponseEntity<>(createdRule, HttpStatus.CREATED);
     }
 
+    // GET all rules
     @GetMapping
-    public List<PolicyRule> getAllRules() {
-        return service.getAllRules();
+    public ResponseEntity<List<PolicyRule>> getAllRules() {
+
+        return ResponseEntity.ok(policyRuleService.getAllRules());
     }
 
+    // GET active rules only
     @GetMapping("/active")
-    public List<PolicyRule> getActiveRules() {
-        return service.getActiveRules();
-    }
+    public ResponseEntity<List<PolicyRule>> getActiveRules() {
 
-    @PutMapping("/{id}/active")
-    public PolicyRule updateActiveStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active) {
-        return service.updateRuleActive(id, active);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteRule(@PathVariable Long id) {
-        service.deleteRule(id);
+        return ResponseEntity.ok(policyRuleService.getActiveRules());
     }
 }
