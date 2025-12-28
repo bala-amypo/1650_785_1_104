@@ -98,7 +98,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             boolean roleMatch = rule.getAppliesToRole() == null
                     || rule.getAppliesToRole().equals(emp.getJobRole());
 
-            int ruleMax = rule.getMaxDevicesAllowed(); // primitive int
+            int ruleMax = rule.getMaxDevicesAllowed(); 
             if (deptMatch && roleMatch && totalActive >= ruleMax) {
                 rec.setIsEligible(false);
                 rec.setReason("Policy violation");
