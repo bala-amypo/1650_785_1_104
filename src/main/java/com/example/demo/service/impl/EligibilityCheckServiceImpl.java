@@ -51,7 +51,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         var empOpt = employeeRepo.findById(employeeId);
         var devOpt = deviceRepo.findById(deviceItemId);
 
-        // Employee or device not found
+       
         if (empOpt.isEmpty() || devOpt.isEmpty()) {
             rec.setIsEligible(false);
             rec.setReason("Employee or device not found");
@@ -61,21 +61,20 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         EmployeeProfile emp = empOpt.get();
         DeviceCatalogItem dev = devOpt.get();
 
-        // Inactive employee
         if (!Boolean.TRUE.equals(emp.getActive())) {
             rec.setIsEligible(false);
             rec.setReason("Employee not active");
             return eligibilityRepo.save(rec);
         }
 
-        // Inactive device
+       
         if (!Boolean.TRUE.equals(dev.getActive())) {
             rec.setIsEligible(false);
             rec.setReason("Device inactive");
             return eligibilityRepo.save(rec);
         }
 
-        // Already has active issuance for this device
+       
         if (!issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId).isEmpty()) {
             rec.setIsEligible(false);
             rec.setReason("Active issuance already exists");
@@ -84,7 +83,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
         long totalActive = issuedRepo.countActiveDevicesForEmployee(employeeId);
 
-        // Check device-level max (primitive int, no null comparison)
+        
         int devMax = dev.getMaxAllowedPerEmployee();
         if (totalActive >= devMax) {
             rec.setIsEligible(false);
@@ -92,7 +91,6 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             return eligibilityRepo.save(rec);
         }
 
-        // Check policy rules
         List<PolicyRule> rules = policyRepo.findByActiveTrue();
         for (PolicyRule rule : rules) {
             boolean deptMatch = rule.getAppliesToDepartment() == null
@@ -108,7 +106,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             }
         }
 
-        // Eligible
+       
         rec.setIsEligible(true);
         rec.setReason("Eligible");
         return eligibilityRepo.save(rec);
