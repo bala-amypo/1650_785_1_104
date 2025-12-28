@@ -63,25 +63,25 @@ public class EmployeeProfileController {
         this.employeeProfileService = employeeProfileService;
     }
 
-    // CREATE → 200 OK
+   
     @PostMapping
     public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
         return employeeProfileService.createEmployee(employee);
     }
 
-    // GET BY ID → 200 OK
+    
     @GetMapping("/{id}")
     public EmployeeProfile getEmployeeById(@PathVariable Long id) {
         return employeeProfileService.getEmployeeById(id);
     }
 
-    // GET ALL → 200 OK
+    
     @GetMapping
     public List<EmployeeProfile> getAllEmployees() {
         return employeeProfileService.getAllEmployees();
     }
 
-    // UPDATE ACTIVE STATUS → 200 OK
+   
     @PutMapping("/{id}/active")
     public EmployeeProfile updateEmployeeStatus(
             @PathVariable Long id,
