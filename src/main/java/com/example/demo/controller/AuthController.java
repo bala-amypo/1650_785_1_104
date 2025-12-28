@@ -88,7 +88,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login() {
-        return "JWT_TOKEN"; // dummy
+    public String login(@RequestBody UserAccount use) {
+        return "Login successful"; // dummy
     }
 }
