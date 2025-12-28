@@ -96,19 +96,19 @@ public class DeviceCatalogController {
         this.deviceCatalogService = deviceCatalogService;
     }
 
-    // CREATE → 200 OK
+   
     @PostMapping
     public DeviceCatalogItem createItem(@RequestBody DeviceCatalogItem item) {
         return deviceCatalogService.createItem(item);
     }
 
-    // GET ALL → 200 OK
+   
     @GetMapping
     public List<DeviceCatalogItem> getAllItems() {
         return deviceCatalogService.getAllItems();
     }
 
-    // UPDATE ACTIVE STATUS → 200 OK
+    
     @PutMapping("/{id}/active")
     public DeviceCatalogItem updateActiveStatus(
             @PathVariable Long id,
