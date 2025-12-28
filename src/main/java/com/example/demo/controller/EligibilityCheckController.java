@@ -119,7 +119,7 @@ public class EligibilityCheckController {
         this.eligibilityCheckService = eligibilityCheckService;
     }
 
-    // VALIDATE ELIGIBILITY → 200 OK
+    
     @PostMapping("/check")
     public EligibilityCheckRecord validateEligibility(
             @RequestParam Long employeeId,
@@ -128,7 +128,7 @@ public class EligibilityCheckController {
         return eligibilityCheckService.validateEligibility(employeeId, deviceItemId);
     }
 
-    // GET CHECKS BY EMPLOYEE → 200 OK
+    
     @GetMapping("/employee/{employeeId}")
     public List<EligibilityCheckRecord> getChecksByEmployee(
             @PathVariable Long employeeId) {
