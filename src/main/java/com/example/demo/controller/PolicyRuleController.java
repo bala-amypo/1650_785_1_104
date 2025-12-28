@@ -85,7 +85,7 @@ public class PolicyRuleController {
         this.policyRuleService = policyRuleService;
     }
 
-    // CREATE policy rule
+  
     @PostMapping
     public ResponseEntity<PolicyRule> createRule(
             @RequestBody PolicyRule rule) {
@@ -94,14 +94,13 @@ public class PolicyRuleController {
         return new ResponseEntity<>(createdRule, HttpStatus.CREATED);
     }
 
-    // GET all rules
+   
     @GetMapping
     public ResponseEntity<List<PolicyRule>> getAllRules() {
 
         return ResponseEntity.ok(policyRuleService.getAllRules());
     }
 
-    // GET active rules only
     @GetMapping("/active")
     public ResponseEntity<List<PolicyRule>> getActiveRules() {
 
