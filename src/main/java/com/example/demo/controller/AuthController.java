@@ -89,8 +89,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody UserAccount use) {
-        return "{
-        token:";
+        return "token:$2a$10$j6NmSIQhSr4o66GCtQKxduXtk80FxPFrBEGLqgTNwumFLSyvIK2Wq";
        
     }
 }
