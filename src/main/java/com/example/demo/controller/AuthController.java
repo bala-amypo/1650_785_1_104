@@ -89,7 +89,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody UserAccount use) {
-        return "Login successful";
+        return "{
+        token:";
        
     }
 }
