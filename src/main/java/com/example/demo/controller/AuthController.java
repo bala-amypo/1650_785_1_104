@@ -14,7 +14,7 @@ public class AuthController {
     private final UserAccountRepository userRepo;
     private final JwtTokenProvider jwtTokenProvider;
 
-    // 🔐 Hardcoded for now (you can move to properties later)
+    // 🔐 simple setup (no Spring injection yet)
     private static final String SECRET_KEY =
             "MyJwtSecretKeyThatIsAtLeast32CharactersLong";
     private static final long VALIDITY_MS = 3600000; // 1 hour
@@ -35,13 +35,11 @@ public class AuthController {
         UserAccount user = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // ⚠️ Plain-text check (OK for now, replace with BCrypt later)
         if (!user.getPassword().equals(request.getPassword())) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
 
         String token = jwtTokenProvider.generateToken(user);
-
         return ResponseEntity.ok(token);
     }
 }

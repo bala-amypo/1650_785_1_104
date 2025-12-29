@@ -15,7 +15,8 @@ public class JwtTokenProvider {
     private final long validityInMs;
 
     public JwtTokenProvider(String secret, long validityInMs) {
-        this.secretKey = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+        this.secretKey =
+                new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
         this.validityInMs = validityInMs;
     }
 
